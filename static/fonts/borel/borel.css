@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Borel";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("/fonts/borel/Borel-Regular.woff2") format("woff2");
+}
