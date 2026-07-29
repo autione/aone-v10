@@ -7,7 +7,7 @@
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
   import fellows, { type FriendEntry } from "$lib/fellows";
 
-  import Globe from "@lucide/svelte/icons/globe";
+  import { Globe } from "@lucide/svelte";
 
   let sortMode = $state("name" as "name" | "time");
   const sorted: FriendEntry[] = $derived(fellows.toSorted((a, b) => (sortMode === "name" ? a.id.charCodeAt(0) - b.id.charCodeAt(0) : a.year - b.year)));

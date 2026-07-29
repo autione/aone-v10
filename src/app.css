@@ -8,6 +8,7 @@
   --base-accent: #000;
   --base-background: #fff;
   --base-foreground: #000;
+  --base-disabled: rgb(from var(--base-foreground) r g b / 0.4);
 
   --host-background: #fff;
 
@@ -205,6 +206,44 @@ a[target="_blank"]:not(.raw):hover::after {
 
 *[data-hover-palette="blue"]:hover {
   --base-accent: #296fbf;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+
+  width: 100%;
+}
+
+.links a {
+  background-color: var(--base-background);
+  border: 2px solid var(--base-accent);
+  color: var(--base-foreground);
+
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  transition-property: background-color, color;
+  transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+  transition-duration: 0.15s;
+}
+
+.links a > b {
+  font-size: 1.25rem;
+  padding-bottom: 0.125rem;
+}
+
+.links a:hover {
+  background-color: var(--base-accent);
+  color: var(--base-background);
+}
+
+.force-light:hover {
+  color: #fff !important;
 }
 
 @keyframes spin {

@@ -40,11 +40,12 @@ export async function validateSessionToken(token: string) {
       user: {
         id: table.user.id,
         email: table.user.email,
-        username: table.user.username,
         flags: table.user.flags,
+        inviteCode: table.user.inviteCode,
 
         avatar: table.user.avatar,
-        displayName: table.user.displayName
+        displayName: table.user.displayName,
+        username: table.user.username
       },
       session: table.session
     })

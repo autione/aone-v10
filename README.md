@@ -1,38 +1,24 @@
-# sv
+# 🌈 auti.one v10
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+this is like, the result of when I lock in for real and decide I need to finish my website once and for all. **none of my work here was made with AI, including this README.**
 
-## Creating a project
+### 🌠 highlights
 
-If you're seeing this, you've probably already done this step. Congrats!
+- ✏️ a bunch of colored text
+- 🎨 nice theme palette generation with CSS
+- 💡 which also means light & dark mode support
+- 🖥️ activity widgets that show up on the homepage pretty neatly
+- 📰 blog posts like any other version of this
+- 🏆 project showcase that's not hardcoded
+- 👥 friends section that _is_ hardcoded
+- 🎀 non-binary
 
-```bash
-# create a new project in the current directory
-npx sv create
+### 📦 stuff used
 
-# create a new project in my-app
-npx sv create my-app
-```
+- ⚙️ typescript, my beloved
+- 🌩️ sveltekit + vite, they're awesome
+- 📂 cloudflare r2, for file storage
+- 💾 drizzle, for database management
+- 🌐 vercel, for site hosting
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## [check it out!](https://auti.one/)

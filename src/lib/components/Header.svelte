@@ -5,9 +5,8 @@
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
 
-  import Copy from "@lucide/svelte/icons/copy";
-  import LogOut from "@lucide/svelte/icons/log-out";
-  
+  import { Copy, LogOut, Ellipsis, DoorOpen, CodeXml } from "@lucide/svelte";
+
   import MaskedIcon from "./MaskedIcon.svelte";
   import Button from "./Button.svelte";
 
@@ -51,35 +50,66 @@
   </nav>
 
   <section>
-    {#if bedroom && bedroom.user}
-      <button onclick={() => (dropdown = !dropdown)} class={`user-menu ${dropdown ? "active" : ""}`}>
-        <span>{bedroom.user.username}</span>
-        <img src={bedroom.user.avatar || "/avatar.png"} alt="Avatar" />
-      </button>
+    {#if bedroom}
+      {#if bedroom.user}
+        <button onclick={() => (dropdown = !dropdown)} class={`user-menu ${dropdown ? "active" : ""}`}>
+          <span>{bedroom.user.username}</span>
+          <img src={bedroom.user.avatar || "/avatar.png"} alt="Avatar" />
+        </button>
+
+        <div class={`dropdown ${dropdown ? "active" : ""}`}>
+          <span>
+            <b>{bedroom.user.displayName}</b>
+            <small>{bedroom.user.email}</small>
+          </span>
+
+          <footer>
+            <Button
+              onclick={() => {
+                navigator.clipboard.writeText(bedroom.user!.id || "");
+                dropdown = false;
+              }}
+              variant="secondary"
+              size="small"
+            >
+              copy id <Copy size={20} />
+            </Button>
+
+            <form onsubmit={() => (dropdown = false)} method="post" action="/bedroom?/logout" use:enhance>
+              <Button type="submit" size="small">
+                disconnect <LogOut size={20} />
+              </Button>
+            </form>
+          </footer>
+        </div>
+      {:else}
+        <a class="raw" href={resolve("/")}>
+          <Button size="tiny">return</Button>
+        </a>
+      {/if}
+    {:else}
+      <Button onclick={() => (dropdown = !dropdown)} size="icon">
+        <Ellipsis size={20} />
+      </Button>
 
       <div class={`dropdown ${dropdown ? "active" : ""}`}>
         <span>
-          <b>{bedroom.user.displayName}</b>
-          <small>{bedroom.user.email}</small>
+          <b>auti.one</b>
+          <small>version 10</small>
         </span>
 
         <footer>
-          <Button
-            onclick={() => {
-              navigator.clipboard.writeText(bedroom.user!.id || "");
-              dropdown = false;
-            }}
-            variant="secondary"
-            size="small"
-          >
-            copy id <Copy size={20} />
-          </Button>
-
-          <form onsubmit={() => (dropdown = false)} method="post" action="/bedroom?/logout" use:enhance>
-            <Button type="submit" size="small">
-              leave <LogOut size={20} />
+          <a class="raw" href={resolve("/bedroom")}>
+            <Button variant="secondary" size="small">
+              enter bedroom <DoorOpen size={20} />
             </Button>
-          </form>
+          </a>
+
+          <a class="raw" href="https://github.com/autione/aone-v10" target="_blank">
+            <Button variant="secondary" size="small">
+              view source <CodeXml size={20} />
+            </Button>
+          </a>
         </footer>
       </div>
     {/if}
@@ -212,15 +242,13 @@
     border: 2px solid var(--base-accent);
     border-top: none;
 
-    transition-property: scale, translate;
+    transition-property: opacity;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     transition-duration: 0.2s;
   }
 
   .dropdown:not(.active) {
-    translate: 0% 50%;
-    scale: 1 0;
-
+    opacity: 0;
     pointer-events: none;
   }
 
@@ -245,7 +273,12 @@
     gap: 0.25rem;
   }
 
-  .dropdown > footer form {
+  .dropdown > footer a {
+    text-decoration: none;
+  }
+
+  .dropdown > footer form,
+  .dropdown > footer a {
     width: 100%;
   }
 

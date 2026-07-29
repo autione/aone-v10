@@ -4,24 +4,11 @@ import type { Actions } from "./$types";
 import { db } from "$lib/server/db";
 import * as auth from "$lib/server/auth";
 import * as table from "$lib/server/db/schema";
+import validators from "$lib/server/validators";
 
-import { z } from "zod";
 import { eq, or } from "drizzle-orm";
 import { hash, verify } from "@node-rs/argon2";
 import { encodeHexLowerCase } from "@oslojs/encoding";
-
-const emailSchema = z.email().max(60);
-const passwordSchema = z.string().min(6).max(255);
-const usernameSchema = z
-  .string()
-  .regex(/^[a-z0-9_-]+/g)
-  .min(3)
-  .max(20);
-const inviteCodeSchema = z
-  .string()
-  .regex(/^[A-Z0-9]{6}-[A-Z0-9]{6}/)
-  .min(13)
-  .max(13);
 
 export const actions: Actions = {
   login: async (event) => {
@@ -30,8 +17,8 @@ export const actions: Actions = {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    if (!emailSchema.safeParse(email).success) return fail(400, { error: "MalformedEmail" });
-    if (!passwordSchema.safeParse(password).success) return fail(400, { error: "MalformedPassword" });
+    if (!validators.userEmail.safeParse(email).success) return fail(400, { error: "MalformedEmail" });
+    if (!validators.userPassword.safeParse(password).success) return fail(400, { error: "MalformedPassword" });
 
     const results = await db.select().from(table.user).where(eq(table.user.email, email));
 
@@ -63,7 +50,7 @@ export const actions: Actions = {
 
     let usedKey: table.InviteKey | null = null;
 
-    if (inviteCodeSchema.safeParse(inviteCode).success) {
+    if (validators.inviteCode.safeParse(inviteCode).success) {
       const inviteResults = await db.select().from(table.inviteKey).where(eq(table.inviteKey.code, inviteCode));
       const inviteKey = inviteResults.at(0);
 
@@ -78,9 +65,9 @@ export const actions: Actions = {
       usedKey = inviteKey;
     } else return fail(400, { error: "MalformedInviteCode" });
 
-    if (!emailSchema.safeParse(email).success) return fail(400, { error: "MalformedEmail" });
-    if (!usernameSchema.safeParse(username).success) return fail(400, { error: "MalformedUsername" });
-    if (!passwordSchema.safeParse(password).success) return fail(400, { error: "MalformedPassword" });
+    if (!validators.userEmail.safeParse(email).success) return fail(400, { error: "MalformedEmail" });
+    if (!validators.userName.safeParse(username).success) return fail(400, { error: "MalformedUsername" });
+    if (!validators.userPassword.safeParse(password).success) return fail(400, { error: "MalformedPassword" });
     if (confirmPassword !== password) return fail(400, { error: "InvalidPasswordMatching" });
 
     const results = await db

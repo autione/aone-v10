@@ -3,7 +3,7 @@
 
   type ButtonProps = SvelteHTMLElements["button"] & {
     variant?: "primary" | "secondary";
-    size?: "normal" | "small";
+    size?: "normal" | "small" | "tiny" | "icon";
   };
 
   const { variant = "primary", size = "normal", children, ...rest }: ButtonProps = $props();
@@ -33,6 +33,20 @@
   button[data-size="small"] {
     font-size: 1rem;
     padding: 0.5rem 0.75rem;
+  }
+
+  button[data-size="tiny"] {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  button[data-size="icon"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    aspect-ratio: 1;
+    padding: 0.125rem;
   }
 
   button[data-variant="primary"] {

@@ -8,10 +8,7 @@
 
   import Header from "$lib/components/Header.svelte";
 
-  import Info from "@lucide/svelte/icons/info";
-  import LogIn from "@lucide/svelte/icons/log-in";
-  import OctagonX from "@lucide/svelte/icons/octagon-x";
-  import SquareArrowRightEnter from "@lucide/svelte/icons/square-arrow-right-enter";
+  import { Info, LogIn, OctagonX, SquareArrowRightEnter } from "@lucide/svelte";
 
   let { form, data }: { form: ActionData; data: LayoutServerData } = $props();
   let isSignUp = $state(false);

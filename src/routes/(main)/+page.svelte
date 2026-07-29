@@ -7,19 +7,21 @@
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
 
-  import House from "@lucide/svelte/icons/house";
-  import CircleUserRound from "@lucide/svelte/icons/circle-user-round";
-  import PencilRuler from "@lucide/svelte/icons/pencil-ruler";
-  import MessageSquareText from "@lucide/svelte/icons/message-square-text";
-  import FolderOpen from "@lucide/svelte/icons/folder-open";
-  import HeartHandshake from "@lucide/svelte/icons/heart-handshake";
-  import ArrowRight from "@lucide/svelte/icons/arrow-right";
-  import Ban from "@lucide/svelte/icons/ban";
-  import GlobeOff from "@lucide/svelte/icons/globe-off";
-  import Ellipsis from "@lucide/svelte/icons/ellipsis";
-  import Play from "@lucide/svelte/icons/play";
-  import Gamepad2 from "@lucide/svelte/icons/gamepad-2";
-  import Info from "@lucide/svelte/icons/info";
+  import {
+    House,
+    CircleUserRound,
+    PencilRuler,
+    MessageSquareText,
+    FolderOpen,
+    HeartHandshake,
+    ArrowRight,
+    Ban,
+    GlobeOff,
+    Ellipsis,
+    Play,
+    Gamepad2,
+    Info
+  } from "@lucide/svelte";
 
   const birthdate = 1179802800000;
   const age = Math.floor((Date.now() - birthdate) / 1000 / 60 / 60 / 24 / 365);
@@ -321,44 +323,6 @@
 </main>
 
 <style>
-  .force-light:hover {
-    color: #fff !important;
-  }
-
-  .links {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-
-    width: 100%;
-  }
-
-  .links a {
-    background-color: var(--base-background);
-    border: 2px solid var(--base-accent);
-    color: var(--base-foreground);
-
-    text-decoration: none;
-
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-
-    transition-property: background-color, color;
-    transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    transition-duration: 0.15s;
-  }
-
-  .links a > b {
-    font-size: 1.25rem;
-    padding-bottom: 0.125rem;
-  }
-
-  .links a:hover {
-    background-color: var(--base-accent);
-    color: var(--base-background);
-  }
-
   .widgets {
     display: grid;
     grid-template-columns: 1fr 1fr;

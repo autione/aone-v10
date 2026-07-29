@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { asset } from "$app/paths";
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
 
-  import Mail from "@lucide/svelte/icons/mail";
+  import { Mail } from "@lucide/svelte";
 </script>
 
 <svelte:head>
@@ -36,11 +37,11 @@
 
     <div class="links">
       <a class="raw" href="discord://-/users/226484318959173632">
-        <MaskedIcon i="/brands/discord.svg" /> Discord
+        <MaskedIcon i={asset("/brands/discord.svg")} /> Discord
       </a>
 
       <a class="raw" href="https://github.com/autione" target="_blank">
-        <MaskedIcon i="/brands/github.svg" /> GitHub
+        <MaskedIcon i={asset("/brands/github.svg")} /> GitHub
       </a>
 
       <span>
@@ -57,35 +58,35 @@
 
     <div class="links">
       <a class="raw" href="https://reddit.com/u/FiveManiaFifty" target="_blank">
-        <MaskedIcon i="/brands/reddit.svg" /> Reddit
+        <MaskedIcon i={asset("/brands/reddit.svg")} /> Reddit
       </a>
 
       <a class="raw" href="https://bsky.app/profile/auti.one" target="_blank">
-        <MaskedIcon i="/brands/bluesky.svg" /> BlueSky
+        <MaskedIcon i={asset("/brands/bluesky.svg")} /> BlueSky
       </a>
 
       <a class="raw" href="https://mastodon.social/@autione" target="_blank">
-        <MaskedIcon i="/brands/mastodon.svg" /> Mastodon
+        <MaskedIcon i={asset("/brands/mastodon.svg")} /> Mastodon
       </a>
 
       <a class="raw" href="https://autione.tumblr.com" target="_blank">
-        <MaskedIcon i="/brands/tumblr.svg" /> Tumblr
+        <MaskedIcon i={asset("/brands/tumblr.svg")} /> Tumblr
       </a>
 
       <a class="raw" href="https://twitter.com/@Awtysmix" target="_blank">
-        <MaskedIcon i="/brands/twitter.svg" /> Twitter
+        <MaskedIcon i={asset("/brands/twitter.svg")} /> Twitter
       </a>
 
       <a class="raw" href="https://youtube.com/@autione" target="_blank">
-        <MaskedIcon i="/brands/youtube.svg" /> YouTube
+        <MaskedIcon i={asset("/brands/youtube.svg")} /> YouTube
       </a>
 
       <a class="raw" href="https://twitch.tv/autione" target="_blank">
-        <MaskedIcon i="/brands/twitch.svg" /> Twitch
+        <MaskedIcon i={asset("/brands/twitch.svg")} /> Twitch
       </a>
 
       <a class="raw" href="https://open.spotify.com/user/12174654642" target="_blank">
-        <MaskedIcon i="/brands/spotify.svg" /> Spotify
+        <MaskedIcon i={asset("/brands/spotify.svg")} /> Spotify
       </a>
     </div>
   </Box>
@@ -95,35 +96,35 @@
 
     <div class="links">
       <a class="raw" href="https://steamcommunity.com/id/AutiOne/" target="_blank">
-        <MaskedIcon i="/brands/steam.svg" /> Steam
+        <MaskedIcon i={asset("/brands/steam.svg")} /> Steam
       </a>
 
       <a class="raw" href="https://www.xbox.com/play/user/AutiOne8439" target="_blank">
-        <MaskedIcon i="/brands/xbox.svg" /> Xbox
+        <MaskedIcon i={asset("/brands/xbox.svg")} /> Xbox
       </a>
 
       <a class="raw" href="https://psnprofiles.com/autione" target="_blank">
-        <MaskedIcon i="/brands/playstation.svg" /> PlayStation
+        <MaskedIcon i={asset("/brands/playstation.svg")} /> PlayStation
       </a>
 
       <a class="raw" href="https://www.roblox.com/users/158742431/profile" target="_blank">
-        <MaskedIcon i="/brands/roblox.svg" /> Roblox
+        <MaskedIcon i={asset("/brands/roblox.svg")} /> Roblox
       </a>
 
       <a class="raw" href="https://osu.ppy.sh/users/33859486" target="_blank">
-        <MaskedIcon i="/brands/osu.svg" /> osu!
+        <MaskedIcon i={asset("/brands/osu.svg")} /> osu!
       </a>
 
       <a class="raw" href="https://ch.tetr.io/u/autione" target="_blank">
-        <MaskedIcon i="/brands/tetrio.svg" /> TETR.IO
+        <MaskedIcon i={asset("/brands/tetrio.svg")} /> TETR.IO
       </a>
 
       <a class="raw" href="https://overwatch.blizzard.com/en-us/career/d34bb8839c7f9ee0bba22ea9%7C0b3246bde514475ff51d8d8d3aa01750/" target="_blank">
-        <MaskedIcon i="/brands/battlenet.svg" /> Battle.net
+        <MaskedIcon i={asset("/brands/battlenet.svg")} /> Battle.net
       </a>
 
       <a class="raw" href="https://www.bungie.net/7/en/User/Profile/3/4611686018537150650" target="_blank">
-        <MaskedIcon i="/brands/bungienet.svg" /> Bungie.net
+        <MaskedIcon i={asset("/brands/bungienet.svg")} /> Bungie.net
       </a>
     </div>
   </Box>

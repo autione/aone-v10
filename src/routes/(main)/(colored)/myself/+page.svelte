@@ -3,15 +3,7 @@
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
 
-  import FileTerminal from "@lucide/svelte/icons/file-terminal";
-  import Paintbrush from "@lucide/svelte/icons/paintbrush";
-  import Clapperboard from "@lucide/svelte/icons/clapperboard";
-  import Gamepad2 from "@lucide/svelte/icons/gamepad-2";
-  import AudioLines from "@lucide/svelte/icons/audio-lines";
-  import BadgeCheck from "@lucide/svelte/icons/badge-check";
-  import RectangleCircle from "@lucide/svelte/icons/rectangle-circle";
-  import NotebookPen from "@lucide/svelte/icons/notebook-pen";
-  import Cpu from "@lucide/svelte/icons/cpu";
+  import { FileTerminal, Paintbrush, Clapperboard, Gamepad2, AudioLines, BadgeCheck, RectangleCircle, NotebookPen, Cpu } from "@lucide/svelte";
 
   const birthdate = 1179802800000;
   const age = Math.floor((Date.now() - birthdate) / 1000 / 60 / 60 / 24 / 365);
