@@ -3,12 +3,13 @@
 
   type BoxProps = SvelteHTMLElements["section"] & {
     label?: string;
+    invert?: boolean;
   };
 
-  const { label, children, ...rest }: BoxProps = $props();
+  const { label, invert, children, ...rest }: BoxProps = $props();
 </script>
 
-<section {...rest}>
+<section data-invert={String(invert)} {...rest}>
   {#if label}
     <span class="cursive">{label}</span>
   {/if}
@@ -47,5 +48,9 @@
     padding-top: calc(1cap + 0.375rem);
 
     font-size: 1.25rem;
+  }
+
+  section[data-invert="true"] > span {
+    color: var(--base-background);
   }
 </style>

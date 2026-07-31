@@ -238,7 +238,7 @@ const fellows: FriendEntry[] = [
     pronouns: "she/her",
     description: "Hyperfixated in producing forms of art.",
 
-    tags: ["music", "code", "art"],
+    tags: ["music", `<a href="/tutu" style="text-decoration: none; color: inherit;" class="raw">code</a>`, "art"],
     links: [
       { icon: "youtube", path: "https://www.youtube.com/@TutuRaines", label: "1" },
       { icon: "youtube", path: "https://www.youtube.com/@TutuMegadety", label: "2" },

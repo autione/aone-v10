@@ -78,7 +78,7 @@
               {/each}
             </div>
 
-            <div class="links">
+            <div class="ext-links">
               {#each fellow.links as link, i (i)}
                 <a class="raw" href={link.path as any} target="_blank">
                   {#if link.icon === "globe"}
@@ -179,7 +179,7 @@
   }
 
   .friend > .meta .tags,
-  .friend > .meta .links {
+  .friend > .meta .ext-links {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -200,7 +200,7 @@
     height: calc(1cap + 0.875rem);
   }
 
-  .friend > .meta .links > a {
+  .friend > .meta .ext-links > a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,7 +214,7 @@
     height: 1.5rem;
   }
 
-  .friend > .meta .links > a b {
+  .friend > .meta .ext-links > a b {
     font-size: 0.625rem;
     text-align: right;
 

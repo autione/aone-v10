@@ -8,6 +8,7 @@
   --base-accent: #000;
   --base-background: #fff;
   --base-foreground: #000;
+  --base-active: var(--base-background);
   --base-disabled: rgb(from var(--base-foreground) r g b / 0.4);
 
   --host-background: #fff;
@@ -17,6 +18,8 @@
   --base-surface-off: #0000000c;
   --base-surface-mid: #0000001c;
   --base-surface-on: #000;
+
+  color: var(--base-foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -130,8 +133,6 @@ a[target="_blank"]:not(.raw):hover::after {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  color: var(--base-foreground);
 }
 
 .intro {

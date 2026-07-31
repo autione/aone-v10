@@ -4,6 +4,7 @@ export default {
   userEmail: z.email().max(60),
   userPassword: z.string().min(6).max(255),
   userDisplayName: z.string().min(1).max(60),
+  userAvatar: z.url().max(255).optional(),
   userName: z
     .string()
     .regex(/^[a-z0-9_-]+/g)

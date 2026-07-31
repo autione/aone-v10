@@ -59,6 +59,16 @@
     color: var(--base-accent);
   }
 
+  @media (prefers-color-scheme: dark) {
+    button[data-variant="primary"] {
+      color: var(--base-active);
+    }
+
+    button[data-variant="primary"]:hover {
+      color: var(--base-foreground);
+    }
+  }
+
   button[data-variant="primary"]:active {
     background-color: var(--base-surface-off);
   }

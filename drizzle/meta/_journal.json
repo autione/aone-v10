@@ -15,6 +15,13 @@
       "when": 1784524957667,
       "tag": "0001_gifted_liz_osborn",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785448631780,
+      "tag": "0002_productive_james_howlett",
+      "breakpoints": true
     }
   ]
 }

@@ -26,7 +26,10 @@
 
   const links: HeaderLink[] =
     bedroom !== undefined
-      ? [{ label: "desk", path: resolve("/bedroom") }]
+      ? [
+          { label: "projects", path: resolve("/bedroom/projects") },
+          { label: "posts", path: resolve("/bedroom/posts") }
+        ]
       : [
           { label: "myself", path: resolve("/myself") },
           { label: "projects", path: resolve("/projects") },
@@ -187,7 +190,7 @@
 
     background-color: transparent;
     box-shadow: 0 0 0 2px transparent;
-    color: inehrit;
+    color: inherit;
     border: none;
 
     padding: 0;
@@ -217,7 +220,7 @@
 
   .user-menu.active {
     background-color: var(--base-accent);
-    color: var(--base-background);
+    color: var(--base-active);
     box-shadow: 0 0 0 2px var(--base-accent);
   }
 

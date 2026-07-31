@@ -10,6 +10,7 @@
   import { resolve } from "$app/paths";
 
   let { data }: { data: LayoutServerData } = $props();
+  let avatarUrl = $state("");
 </script>
 
 <svelte:head>
@@ -30,7 +31,7 @@
     </Box>
   </section>
 
-  <Box label="trinkets">
+  <Box invert label="trinkets">
     <section class="box-intro">
       <div>
         <h3>could be fun to kickstart some work</h3>
@@ -43,17 +44,17 @@
     <section class="links">
       <a class="raw" href={resolve("/")}>
         <ArrowLeft />
-        <b>return </b>
+        <b>return</b>
         <span>leave the bedroom and view the site</span>
       </a>
 
-      <a data-hover-palette="orange" class="force-light raw" href="#">
+      <a data-hover-palette="orange" class="force-light raw" href={resolve("/bedroom/projects")}>
         <PencilRuler />
         <b>projects</b>
         <span>showcase hobby and work projects</span>
       </a>
 
-      <a data-hover-palette="green" class="force-light raw" href="#">
+      <a data-hover-palette="green" class="force-light raw" href={resolve("/bedroom/posts")}>
         <ScrollText />
         <b>posts</b>
         <span>publish articles on the blog</span>
@@ -61,7 +62,7 @@
     </section>
   </Box>
 
-  <Box label="persona">
+  <Box invert label="persona">
     <section class="box-intro">
       <div>
         <h3>feeling like rewriting who you are?</h3>
@@ -73,22 +74,30 @@
 
     <form class="with-layout persona" method="post" action="?/updateUser" use:enhance>
       <main>
-        <label>
+        <label style="grid-area: a;">
           <span>display name <small><Info size={14} /> 1-60 chars</small></span>
           <input placeholder="insert display name..." name="displayName" defaultValue={data.user!.displayName} />
         </label>
 
-        <label>
+        <label style="grid-area: b;">
           <span>name <small><Info size={14} /> lowercase, 3-20 chars</small></span>
           <input placeholder="insert username..." name="username" defaultValue={data.user!.username} />
         </label>
 
-        <label>
+        <label style="grid-area: c;">
           <span>e-mail <small><Info size={14} /> 1-60 chars</small></span>
           <input placeholder="insert e-mail..." type="email" name="email" defaultValue={data.user!.email} />
         </label>
 
-        <label>
+        <label style="grid-area: d;">
+          <span>avatar <small><Info size={14} /> URL, 0-255 chars</small></span>
+          <div>
+            <input placeholder="insert image link..." type="url" name="avatar" bind:value={avatarUrl} defaultValue={data.user!.avatar || ""} />
+            <img src={avatarUrl} style="color: transparent;" alt="Avatar Preview" class="avatar-preview" />
+          </div>
+        </label>
+
+        <label style="grid-area: e;">
           invite code
           <input placeholder="insert invite code..." name="inviteCode" defaultValue={data.user!.inviteCode} readonly />
         </label>
@@ -101,7 +110,7 @@
     </form>
   </Box>
 
-  <Box label="security">
+  <Box invert label="security">
     <section class="box-intro">
       <div>
         <h3>or do you need to change the locks?</h3>
@@ -166,7 +175,10 @@
   }
 
   form.with-layout.persona > main {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "a a a b b b"
+      "c c d d e e";
   }
 
   form.with-layout.security > main {
@@ -214,6 +226,8 @@
   }
 
   form input {
+    width: calc(100% - 1rem - 4px);
+
     color: var(--base-foreground);
     font: inherit;
     padding: 0.5rem;
@@ -235,5 +249,24 @@
   form input:not(:read-only):hover,
   form input:not(:read-only):focus {
     background-color: var(--base-surface-off);
+  }
+
+  form label > div {
+    position: relative;
+    width: 100%;
+  }
+
+  .avatar-preview {
+    position: absolute;
+    translate: 0 -50%;
+    top: 50%;
+    right: 0.5rem;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    aspect-ratio: 1;
+
+    background-color: var(--base-surface-off);
+    border: 1px solid transparent;
   }
 </style>

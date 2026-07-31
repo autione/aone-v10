@@ -28,19 +28,18 @@ export const postVisibility = pgEnum("post_visibility", ["public", "private"]);
 
 export const post = pgTable("post", {
   id: text("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description"),
-  content: text("content").notNull(),
   authorId: text("author_id")
     .notNull()
     .references(() => user.id),
 
+  title: text("title").notNull(),
+  description: text("description"),
+  content: text("content").notNull(),
+
   thumbnail: text("thumbnail"),
   createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull(),
   visibility: postVisibility("visibility").default("public").notNull(),
-
-  collection: text("collection"),
-  pinned: boolean("pinned")
+  pinned: boolean("pinned").notNull().default(false)
 });
 
 export const postsRelations = relations(post, ({ one }) => ({
@@ -55,7 +54,25 @@ export const inviteKey = pgTable("invites", {
   issuedBy: text("issued_by").references(() => user.id)
 });
 
+type ProjectLink = { label: string; url: string };
+
+export const projectStatus = pgEnum("project_status", ["active", "developing", "paused", "deprecated"]);
+
+export const project = pgTable("projects", {
+  id: text("id").primaryKey(),
+  title: text("title").default("").notNull(),
+  tagline: text("tagline").default("").notNull(),
+  description: text("description").default("").notNull(),
+
+  links: json("links").$type<ProjectLink[]>().notNull().default([]),
+  timeframe: json("timeframe").$type<[number, number | true]>().notNull(),
+
+  category: text("category").default("").notNull(),
+  status: projectStatus("status").notNull()
+});
+
 export type User = typeof user.$inferSelect;
 export type Session = typeof session.$inferSelect;
 export type Post = typeof post.$inferSelect;
 export type InviteKey = typeof inviteKey.$inferSelect;
+export type Project = typeof project.$inferSelect;
