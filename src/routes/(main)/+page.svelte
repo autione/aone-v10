@@ -333,6 +333,12 @@
     width: 100%;
   }
 
+  @media screen and (max-width: 640px) {
+    .widgets {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .widget {
     display: grid;
     grid-template-rows: 1fr max-content;

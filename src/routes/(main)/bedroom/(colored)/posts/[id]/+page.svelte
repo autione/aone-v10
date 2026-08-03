@@ -74,39 +74,41 @@
       </section>
 
       <section class="tools">
-        <Button disabled={busy} onclick={() => (visibility = visibility === "public" ? "private" : "public")} type="button" variant="tertiary" size="tiny">
-          {#if visibility === "public"}
-            <Globe size={16} /> public
-          {:else}
-            <Lock size={16} /> private
-          {/if}
-        </Button>
+        <div>
+          <Button disabled={busy} onclick={() => (visibility = visibility === "public" ? "private" : "public")} type="button" variant="tertiary" size="tiny">
+            {#if visibility === "public"}
+              <Globe size={16} /> public
+            {:else}
+              <Lock size={16} /> private
+            {/if}
+          </Button>
 
-        <Button disabled={busy} onclick={() => (pinned = !pinned)} type="button" variant="tertiary" size="tiny">
-          {#if pinned}
-            <Pin size={16} /> pinned
-          {:else}
-            <PinOff size={16} /> ordered
-          {/if}
-        </Button>
+          <Button disabled={busy} onclick={() => (pinned = !pinned)} type="button" variant="tertiary" size="tiny">
+            {#if pinned}
+              <Pin size={16} /> pinned
+            {:else}
+              <PinOff size={16} /> ordered
+            {/if}
+          </Button>
 
-        <Button
-          disabled={busy}
-          onclick={() => {
-            const res = prompt("insert a thumbnail image link:", thumbnail || "");
-            if (res === "") thumbnail = null;
-            else if (res !== null) thumbnail = res;
-          }}
-          type="button"
-          variant="tertiary"
-          size="tiny"
-        >
-          {#if thumbnail !== null}
-            <Image size={16} /> change thumbnail
-          {:else}
-            <ImagePlus size={16} /> add thumbnail
-          {/if}
-        </Button>
+          <Button
+            disabled={busy}
+            onclick={() => {
+              const res = prompt("insert a thumbnail image link:", thumbnail || "");
+              if (res === "") thumbnail = null;
+              else if (res !== null) thumbnail = res;
+            }}
+            type="button"
+            variant="tertiary"
+            size="tiny"
+          >
+            {#if thumbnail !== null}
+              <Image size={16} /> change thumbnail
+            {:else}
+              <ImagePlus size={16} /> add thumbnail
+            {/if}
+          </Button>
+        </div>
 
         <aside>
           <Button disabled={busy} onclick={() => (preview = !preview)} type="button" variant="secondary" size="tiny">
@@ -230,6 +232,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .editor-header .tools > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 0.5rem;
   }
 
@@ -238,8 +248,6 @@
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
-
-    margin-left: auto;
   }
 
   .editor-content {
@@ -276,5 +284,33 @@
 
     border: 2px solid var(--base-accent);
     border-top: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .tools {
+      flex-direction: column !important;
+      justify-content: center;
+    }
+
+    .tools > div {
+      width: 100%;
+      overflow-x: auto !important;
+    }
+
+    .tools > div > :global(*) {
+      width: 100%;
+      min-width: max-content;
+    }
+
+    .tools aside {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .tools aside > :global(*) {
+      width: 100%;
+      min-width: max-content;
+      justify-content: center;
+    }
   }
 </style>

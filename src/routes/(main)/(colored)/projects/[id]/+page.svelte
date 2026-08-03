@@ -230,13 +230,6 @@
     width: 100%;
   }
 
-  .project-info main > span > * {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-  }
-
   .project-info main > span > small {
     display: flex;
     flex-direction: row;
@@ -378,5 +371,11 @@
 
   .gallery > button img {
     width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .project-info .details, .project-body {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

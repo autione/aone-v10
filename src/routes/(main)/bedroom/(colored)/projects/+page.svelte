@@ -163,7 +163,7 @@
     color: var(--base-foreground);
     border: 2px solid var(--base-accent);
 
-    width: calc(100% - 4px);
+    width: 100%;
   }
 
   .controls > aside {

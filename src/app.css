@@ -247,6 +247,18 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
   font-style: italic;
 }
 
+@media screen and (max-width: 520px) {
+  .intro {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .intro .chips {
+    justify-content: center;
+  }
+}
+
 *[data-hover-palette="red"]:hover {
   --base-accent: #c22648;
 }
@@ -273,6 +285,18 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
   gap: 1rem;
 
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .links {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
 }
 
 .links a {

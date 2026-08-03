@@ -635,13 +635,6 @@
     width: 100%;
   }
 
-  .project-info main > span > * {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-  }
-
   .project-info main > span > small {
     display: flex;
     flex-direction: row;
@@ -783,5 +776,33 @@
 
   .gallery > button img {
     width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .editor-header {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .editor-header aside {
+      margin: 0;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .editor-header aside > :global(*) {
+      width: 100%;
+      min-width: max-content;
+      justify-content: center;
+    }
+
+    .editor-info .details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-info .details, .project-body {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

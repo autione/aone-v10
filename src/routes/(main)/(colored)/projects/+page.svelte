@@ -83,6 +83,12 @@
     gap: 0.75rem;
   }
 
+  @media screen and (max-width: 768px) {
+    .projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .projects > a {
     display: flex;
     flex-direction: column;

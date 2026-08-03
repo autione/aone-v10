@@ -110,6 +110,12 @@
     gap: 1rem;
   }
 
+  @media screen and (max-width: 768px) {
+    .friends > main {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .friend {
     display: flex;
     flex-direction: column;
@@ -249,7 +255,7 @@
     display: flex;
     grid-auto-columns: 1fr;
 
-    width: calc(100% - 4px);
+    width: 100%;
     border: 2px solid var(--base-accent);
 
     background-color: var(--base-background);

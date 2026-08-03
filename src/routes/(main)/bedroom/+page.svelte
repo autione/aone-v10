@@ -279,4 +279,20 @@
     box-shadow: 0 0 0 0.5px var(--base-foreground);
     scale: 4;
   }
+
+  @media screen and (max-width: 768px) {
+    form.with-layout > main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form.with-layout > footer {
+      flex-direction: column;
+    }
+
+    form.with-layout > footer > :global(*) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 </style>

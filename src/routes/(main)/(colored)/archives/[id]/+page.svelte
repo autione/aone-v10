@@ -97,6 +97,20 @@
     margin-top: 0.5rem;
   }
 
+  @media screen and (max-width: 640px) {
+    .post-header {
+      text-align: center;
+    }
+
+    .post-header > div {
+      justify-content: center;
+    }
+
+    .post-header > div > span {
+      margin: 0 !important;
+    }
+  }
+
   .post-header > div > span {
     background-color: var(--base-foreground);
     color: var(--base-background);
