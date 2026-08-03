@@ -69,8 +69,8 @@
       }}
     >
       <section class="meta">
-        <input disabled={busy} type="text" autocomplete="off" name="title" placeholder="insert title..." bind:value={title} />
-        <input disabled={busy} type="text" autocomplete="off" name="description" placeholder="insert description..." bind:value={description} />
+        <input class="raw" disabled={busy} type="text" autocomplete="off" name="title" placeholder="insert title..." bind:value={title} />
+        <input class="raw" disabled={busy} type="text" autocomplete="off" name="description" placeholder="insert description..." bind:value={description} />
       </section>
 
       <section class="tools">

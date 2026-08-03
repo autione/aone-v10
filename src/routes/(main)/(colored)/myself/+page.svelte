@@ -36,8 +36,8 @@
 
   <Box label="introduction">
     <p>
-      As you may already know, my name is Auti. I'm a {age}-year-old <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> autistic silly
-      from São Paulo, Brazil. I use they/it pronouns.
+      As you may already know, my name is Auti. I'm a {age}-year-old brazilian <a href="https://en.wikipedia.org/wiki/Autism" target="_blank">autistic</a>
+      <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> from São Paulo. I use they/it pronouns.
     </p>
     <br />
     <p>

@@ -176,6 +176,7 @@
 
         <label for="p">
           <input
+            class="raw"
             type="number"
             min={0}
             max={data.query.maxPages}

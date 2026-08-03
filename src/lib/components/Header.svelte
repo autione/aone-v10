@@ -108,9 +108,10 @@
             </Button>
           </a>
 
-          <a class="raw" href="https://github.com/autione/aone-v10" target="_blank">
+          <a style="pointer-events: none; opacity: 0.5;" class="raw" href="https://github.com/autione/aone-v10" target="_blank">
             <Button variant="secondary" size="small">
-              view source <CodeXml size={20} />
+              <!-- view source <CodeXml size={20} /> -->
+              source soon™ <CodeXml size={20} />
             </Button>
           </a>
         </footer>

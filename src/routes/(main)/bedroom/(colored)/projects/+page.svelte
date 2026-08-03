@@ -63,19 +63,18 @@
 
           <select onchange={(e) => (e.currentTarget.parentElement as HTMLFormElement).requestSubmit()} value={data.query?.category} name="c">
             <option value="all">all categories</option>
-            <option value="games">games</option>
-            <option value="websites">websites</option>
-            <option value="apps">apps</option>
-            <option value="services">services</option>
-            <option value="others">others</option>
+            {#each Object.keys(projectMeta.category) as key (key)}
+              <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+              <option value={key}>{(projectMeta.category as any)[key].name.toLowerCase()}</option>
+            {/each}
           </select>
 
           <select onchange={(e) => (e.currentTarget.parentElement as HTMLFormElement).requestSubmit()} value={data.query?.status} name="s">
             <option value="all">all statuses</option>
-            <option value="active">active</option>
-            <option value="developing">developing</option>
-            <option value="paused">paused</option>
-            <option value="deprecated">deprecated</option>
+            {#each Object.keys(projectMeta.status) as key (key)}
+              <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+              <option value={key}>{(projectMeta.status as any)[key].label.toLowerCase()}</option>
+            {/each}
           </select>
         </form>
       {/if}

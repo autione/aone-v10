@@ -24,7 +24,7 @@ export const load: PageServerLoad = async (event) => {
       description: false
     },
     where: filter,
-    orderBy: (projects, { desc }) => [desc(projects.title)]
+    orderBy: (projects, { asc }) => [asc(projects.status), asc(projects.id)]
   });
 
   return {
