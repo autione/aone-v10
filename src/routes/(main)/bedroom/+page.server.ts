@@ -1,6 +1,7 @@
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 
+import { env } from "$env/dynamic/private";
 import { db } from "$lib/server/db";
 import * as auth from "$lib/server/auth";
 import * as table from "$lib/server/db/schema";
@@ -60,6 +61,68 @@ export const actions: Actions = {
     if (!validators.userName.safeParse(username).success) return fail(400, { error: "MalformedUsername" });
     if (avatar.length > 0 && !validators.userAvatar.safeParse(avatar).success) return fail(400, { error: "MalformedAvatarURL" });
 
+    const cdnMatch = "files.auti.one/user-avatars";
+    if (!avatar.match(cdnMatch)) {
+      const current = event.locals.user.avatar || "";
+      const path = `user-avatars/${event.locals.user.id}`;
+
+      if (current.match(cdnMatch) && current.endsWith(path)) {
+        try {
+          await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCID}/r2/buckets/autione-primary/objects/${path}`, {
+            method: "DELETE",
+            headers: [["Authorization", `Bearer ${env.CLOUDFLARE_USER_TOKEN}`]]
+          });
+
+          console.log("Removed old avatar object from storage");
+        } catch (error) {
+          console.warn("Failed to remove old avatar object:", error);
+        }
+      }
+    }
+
     await db.update(table.user).set({ email, displayName, username, avatar }).where(eq(table.user.id, event.locals.user.id));
+  },
+
+  uploadAvatar: async (event) => {
+    if (!event.locals.session || !event.locals.user) return fail(401);
+    const formData = await event.request.formData();
+
+    const file = formData.get("file") as File;
+    if (!file) return fail(400, { error: "InvalidFile" });
+
+    const path = `user-avatars/${event.locals.user.id}`;
+
+    try {
+      const url = `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCID}/r2/buckets/autione-primary/objects/${path}`;
+      const auth: [string, string] = ["Authorization", `Bearer ${env.CLOUDFLARE_USER_TOKEN}`];
+
+      // check if object already exists
+      const res = await fetch(url, { method: "GET", headers: [auth] });
+      if (res.status !== 404) await fetch(url, { method: "DELETE", headers: [auth] });
+
+      try {
+        // upload avatar
+        const upload = await fetch(url, {
+          method: "PUT",
+          headers: [["Content-Type", file.type], auth],
+          body: await file.arrayBuffer()
+        });
+
+        const data = await upload.json();
+        if (!data.success) throw new Error(JSON.stringify(data));
+
+        // change avatar url in db
+        await db
+          .update(table.user)
+          .set({ avatar: `https://files.auti.one/${path}` })
+          .where(eq(table.user.id, event.locals.user.id));
+      } catch (error) {
+        console.error("Failed to upload avatar:", error);
+        return fail(500, { error: "UploadError" });
+      }
+    } catch (error) {
+      console.error("Failed to check/overwrite existing object:", error);
+      return fail(500, { error: "InternalError" });
+    }
   }
 };

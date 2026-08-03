@@ -10,7 +10,10 @@
   import { resolve } from "$app/paths";
 
   let { data }: { data: LayoutServerData } = $props();
-  let avatarUrl = $state("");
+  let avatarUrl = $derived(data.user?.avatar || "");
+
+  let filePicker = $state(undefined as HTMLInputElement | undefined);
+  let fileForm = $state(undefined as HTMLFormElement | undefined);
 </script>
 
 <svelte:head>
@@ -72,6 +75,21 @@
       <CircleUserRound />
     </section>
 
+    <form bind:this={fileForm} method="post" enctype="multipart/form-data" action="?/uploadAvatar" style="display: none;">
+      <input
+        bind:this={filePicker}
+        accept="image/*"
+        type="file"
+        name="file"
+        onchange={(e) => {
+          const files = e.currentTarget.files;
+          console.log(files);
+          if (!files || !files[0]) return;
+          fileForm?.requestSubmit();
+        }}
+      />
+    </form>
+
     <form class="with-layout persona" method="post" action="?/updateUser" use:enhance>
       <main>
         <label style="grid-area: a;">
@@ -92,8 +110,15 @@
         <label style="grid-area: d;">
           <span>avatar <small><Info size={14} /> URL, 0-255 chars</small></span>
           <div>
-            <input placeholder="insert image link..." type="url" name="avatar" bind:value={avatarUrl} defaultValue={data.user!.avatar || ""} />
-            <img src={avatarUrl} style="color: transparent;" alt="Avatar Preview" class="avatar-preview" />
+            <input
+              style="padding-right: 2.25rem"
+              placeholder="insert image link..."
+              type="url"
+              name="avatar"
+              defaultValue={data.user!.avatar}
+              bind:value={avatarUrl}
+            />
+            <img src={avatarUrl} style="color: transparent;" alt="Avatar Preview" class="avatar avatar-preview" />
           </div>
         </label>
 
@@ -104,6 +129,8 @@
       </main>
 
       <footer>
+        <Button onclick={() => filePicker?.click()} style="margin-right: auto;" size="small" variant="tertiary" type="button">upload avatar</Button>
+
         <Button size="small" variant="secondary" type="reset">reset</Button>
         <Button size="small" type="submit">update profile</Button>
       </footer>
@@ -225,32 +252,6 @@
     display: flex;
   }
 
-  form input {
-    width: calc(100% - 1rem - 4px);
-
-    color: var(--base-foreground);
-    font: inherit;
-    padding: 0.5rem;
-
-    background-color: transparent;
-    border: 2px solid var(--base-accent);
-
-    transition-property: background-color;
-    transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    transition-duration: 0.1s;
-  }
-
-  form input:read-only {
-    border-color: var(--base-surface-mid);
-    color: var(--base-disabled);
-    outline: none;
-  }
-
-  form input:not(:read-only):hover,
-  form input:not(:read-only):focus {
-    background-color: var(--base-surface-off);
-  }
-
   form label > div {
     position: relative;
     width: 100%;
@@ -266,7 +267,16 @@
     height: 1.5rem;
     aspect-ratio: 1;
 
-    background-color: var(--base-surface-off);
-    border: 1px solid transparent;
+    background-color: var(--base-background);
+    border: 0px solid var(--base-background);
+
+    transition-property: border-width, box-shadow, scale;
+    transition-duration: 0.25s;
+  }
+
+  .avatar-preview:hover {
+    border-width: 0.25px;
+    box-shadow: 0 0 0 0.5px var(--base-foreground);
+    scale: 4;
   }
 </style>

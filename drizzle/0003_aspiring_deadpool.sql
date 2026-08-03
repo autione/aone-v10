@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "contributors" json DEFAULT '[]'::json NOT NULL;

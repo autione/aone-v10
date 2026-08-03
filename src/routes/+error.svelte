@@ -54,7 +54,7 @@
     grid-template-columns: 1fr 1fr;
 
     width: calc(100% - 1rem);
-    max-width: calc(520px + 2px);
+    max-width: 520px;
 
     background-color: var(--base-background);
   }
@@ -70,7 +70,7 @@
     gap: 1rem;
 
     width: calc(100% - 1rem);
-    max-width: calc(520px - (1.25rem * 2) - 4px);
+    max-width: 520px;
   }
 
   main > div > aside {
@@ -88,5 +88,9 @@
 
   h2 {
     font-weight: 400;
+  }
+
+  a {
+    text-decoration: none;
   }
 </style>

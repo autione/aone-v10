@@ -209,7 +209,7 @@ const fellows: FriendEntry[] = [
     pronouns: "she/her",
     description: "I love singing, modelling, and 3D printing (and I love yung li).",
 
-    tags: ["3D modeller", "IT", "music"],
+    tags: ["IT", "3D modeller", "music"],
     links: [
       { icon: "twitch", path: "https://twitch.tv/nicollyeleven" },
       { icon: "youtube", path: "https://www.youtube.com/@Nicky_Eleven" }

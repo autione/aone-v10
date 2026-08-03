@@ -2,7 +2,7 @@
   import type { SvelteHTMLElements } from "svelte/elements";
 
   type ButtonProps = SvelteHTMLElements["button"] & {
-    variant?: "primary" | "secondary";
+    variant?: "primary" | "secondary" | "tertiary";
     size?: "normal" | "small" | "tiny" | "icon";
   };
 
@@ -15,14 +15,23 @@
 
 <style>
   button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+
     font: inherit;
     border: 2px solid var(--base-accent);
 
-    transition-property: background-color, color;
+    transition-property: background-color, color, border-color, opacity;
     transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
     transition-duration: 0.1s;
 
     cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.5;
   }
 
   button[data-size="normal"] {
@@ -59,16 +68,6 @@
     color: var(--base-accent);
   }
 
-  @media (prefers-color-scheme: dark) {
-    button[data-variant="primary"] {
-      color: var(--base-active);
-    }
-
-    button[data-variant="primary"]:hover {
-      color: var(--base-foreground);
-    }
-  }
-
   button[data-variant="primary"]:active {
     background-color: var(--base-surface-off);
   }
@@ -84,6 +83,35 @@
 
   button[data-variant="secondary"]:active {
     background-color: var(--base-background);
-    color: var(--base-accent);
+  }
+
+  button[data-variant="tertiary"] {
+    background-color: var(--base-surface-off);
+    border-color: transparent;
+    color: var(--base-foreground);
+  }
+
+  button[data-variant="tertiary"]:hover {
+    background-color: var(--base-surface-mid);
+  }
+
+  button[data-variant="tertiary"]:active {
+    background-color: var(--base-surface);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    button[data-variant="primary"] {
+      color: var(--base-active);
+    }
+
+    button[data-variant="primary"]:hover {
+      color: var(--base-foreground);
+    }
+
+    button[data-variant="primary"]:active,
+    button[data-variant="secondary"]:active,
+    button[data-variant="tertiary"]:active {
+      color: var(--base-active);
+    }
   }
 </style>

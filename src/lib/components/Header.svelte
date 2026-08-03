@@ -57,7 +57,7 @@
       {#if bedroom.user}
         <button onclick={() => (dropdown = !dropdown)} class={`user-menu ${dropdown ? "active" : ""}`}>
           <span>{bedroom.user.username}</span>
-          <img src={bedroom.user.avatar || "/avatar.png"} alt="Avatar" />
+          <img src={bedroom.user.avatar || "/avatar.png"} class="avatar" alt="Avatar" />
         </button>
 
         <div class={`dropdown ${dropdown ? "active" : ""}`}>
@@ -130,6 +130,8 @@
 
     background-color: var(--base-background);
     border: 2px solid var(--base-accent);
+
+    width: 100%;
   }
 
   .home {
@@ -230,7 +232,7 @@
     justify-content: center;
     gap: 1rem;
 
-    width: 12rem;
+    width: 14rem;
     padding: 1rem;
     padding-top: 0.5rem;
 
@@ -248,6 +250,8 @@
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     transition-duration: 0.2s;
+
+    z-index: 2;
   }
 
   .dropdown:not(.active) {

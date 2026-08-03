@@ -22,6 +22,27 @@
       "when": 1785448631780,
       "tag": "0002_productive_james_howlett",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1785715693048,
+      "tag": "0003_aspiring_deadpool",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785716148157,
+      "tag": "0004_ancient_zeigeist",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785726227568,
+      "tag": "0005_spicy_fixer",
+      "breakpoints": true
     }
   ]
 }

@@ -35,7 +35,7 @@
   <Box label="immediate contact">
     <p>Reach me through these platforms if you want to get in touch and get a response as soon as possible. Please do allow for time to respond.</p>
 
-    <div class="links">
+    <div class="socials">
       <a class="raw" href="discord://-/users/226484318959173632">
         <MaskedIcon i={asset("/brands/discord.svg")} /> Discord
       </a>
@@ -56,7 +56,7 @@
       times.
     </p>
 
-    <div class="links">
+    <div class="socials">
       <a class="raw" href="https://reddit.com/u/FiveManiaFifty" target="_blank">
         <MaskedIcon i={asset("/brands/reddit.svg")} /> Reddit
       </a>
@@ -94,7 +94,7 @@
   <Box label="fun and games">
     <p>At last, all the crazy gaming platforms I'm a part of.</p>
 
-    <div class="links">
+    <div class="socials">
       <a class="raw" href="https://steamcommunity.com/id/AutiOne/" target="_blank">
         <MaskedIcon i={asset("/brands/steam.svg")} /> Steam
       </a>
@@ -131,7 +131,7 @@
 </main>
 
 <style>
-  .links {
+  .socials {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -141,8 +141,8 @@
     gap: 0.375rem;
   }
 
-  .links > a,
-  .links > span {
+  .socials > a,
+  .socials > span {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -153,7 +153,7 @@
     gap: 0.375rem;
   }
 
-  .links > a {
+  .socials > a {
     background-color: var(--base-surface-off);
     color: var(--base-accent);
     text-decoration: none;
@@ -163,12 +163,12 @@
     transition-duration: 0.1s;
   }
 
-  .links > a:hover {
+  .socials > a:hover {
     background-color: var(--base-surface-on);
     color: var(--base-background);
   }
 
-  .links > span {
+  .socials > span {
     background-color: var(--base-surface-off);
     color: var(--base-accent);
     opacity: 0.5;
@@ -176,12 +176,12 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    .links > a,
-    .links > span {
+    .socials > a,
+    .socials > span {
       color: var(--base-foreground);
     }
 
-    .links > a:hover {
+    .socials > a:hover {
       background-color: var(--base-foreground);
     }
   }

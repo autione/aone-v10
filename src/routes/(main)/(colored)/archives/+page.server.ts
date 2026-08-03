@@ -1,4 +1,3 @@
-import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 import * as table from "$lib/server/db/schema";
@@ -6,15 +5,12 @@ import { db } from "$lib/server/db";
 import { and, eq, ilike } from "drizzle-orm";
 
 export const load: PageServerLoad = async (event) => {
-  if (!event.locals.user) return fail(401);
-
   const query = event.url.searchParams.get("q") || "";
-  const visibility = (event.url.searchParams.get("v") || "all") as "all" | "public" | "private";
 
   let pageNum = Math.max(1, Number(event.url.searchParams.get("p")) || 1);
   const sort = event.url.searchParams.get("s") || "latest";
 
-  const filter = and(query ? ilike(table.post.title, `%${query}%`) : undefined, visibility !== "all" ? eq(table.post.visibility, visibility) : undefined);
+  const filter = and(query ? ilike(table.post.title, `%${query}%`) : undefined, eq(table.post.visibility, "public"));
   const count = await db.$count(table.post, filter);
 
   const maxPages = Math.ceil(count / 10);
@@ -46,7 +42,6 @@ export const load: PageServerLoad = async (event) => {
   return {
     query: {
       term: query,
-      visibility,
       sort,
 
       page: pageNum,
@@ -57,26 +52,4 @@ export const load: PageServerLoad = async (event) => {
     },
     posts
   };
-};
-
-export const actions: Actions = {
-  create: async (event) => {
-    if (!event.locals.user) return fail(401);
-
-    const formData = await event.request.formData();
-    const id = formData.get("id") as string;
-
-    if (typeof id !== "string" || id.length < 1) return fail(400, { error: "InvalidSlug" });
-
-    await db.insert(table.post).values({
-      id,
-      title: "Untitled Draft",
-      content: "",
-      createdAt: new Date(),
-      visibility: "private",
-      authorId: event.locals.user.id
-    });
-
-    return redirect(303, `/bedroom/posts/${id}`);
-  }
 };

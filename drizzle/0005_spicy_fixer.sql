@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "gallery" json DEFAULT '[]'::json NOT NULL;

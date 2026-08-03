@@ -55,20 +55,27 @@ export const inviteKey = pgTable("invites", {
 });
 
 type ProjectLink = { label: string; url: string };
+type ProjectContributor = { name: string; role: string };
 
 export const projectStatus = pgEnum("project_status", ["active", "developing", "paused", "deprecated"]);
+export const projectCategory = pgEnum("project_category", ["games", "websites", "apps", "services", "other"]);
 
 export const project = pgTable("projects", {
   id: text("id").primaryKey(),
+  visible: boolean("visible").default(false).notNull(),
+  featured: boolean("featured").default(false).notNull(),
+
   title: text("title").default("").notNull(),
   tagline: text("tagline").default("").notNull(),
   description: text("description").default("").notNull(),
+  gallery: json("gallery").$type<string[]>().notNull().default([]),
 
   links: json("links").$type<ProjectLink[]>().notNull().default([]),
   timeframe: json("timeframe").$type<[number, number | true]>().notNull(),
+  contributors: json("contributors").$type<ProjectContributor[]>().notNull().default([]),
 
-  category: text("category").default("").notNull(),
-  status: projectStatus("status").notNull()
+  category: projectCategory("category").default("other").notNull(),
+  status: projectStatus("status").default("deprecated").notNull()
 });
 
 export type User = typeof user.$inferSelect;
