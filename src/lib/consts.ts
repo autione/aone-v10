@@ -2,19 +2,8 @@ import { CircleCheck, CircleEllipsis, CirclePause, CircleX, Globe, Joystick, Lay
 import type { Component } from "svelte";
 
 interface ProjectMetaInfo {
-  status: {
-    active: ProjectStatusInfo;
-    developing: ProjectStatusInfo;
-    paused: ProjectStatusInfo;
-    deprecated: ProjectStatusInfo;
-  };
-  category: {
-    games: ProjectCategoryInfo;
-    websites: ProjectCategoryInfo;
-    apps: ProjectCategoryInfo;
-    services: ProjectCategoryInfo;
-    other: ProjectCategoryInfo;
-  };
+  status: { [key: string]: ProjectStatusInfo };
+  category: { [key: string]: ProjectCategoryInfo };
 }
 
 interface ProjectStatusInfo {
@@ -26,6 +15,7 @@ interface ProjectStatusInfo {
 interface ProjectCategoryInfo {
   name: string;
   icon: Component;
+  order: number;
 }
 
 export const projectMeta: ProjectMetaInfo = {
@@ -37,10 +27,10 @@ export const projectMeta: ProjectMetaInfo = {
   },
 
   category: {
-    games: { name: "Games", icon: Joystick },
-    websites: { name: "Websites", icon: Globe },
-    apps: { name: "Apps", icon: LayoutGrid },
-    services: { name: "Services", icon: Network },
-    other: { name: "Other", icon: PackageOpen }
+    games: { name: "Games", icon: Joystick, order: 1 },
+    websites: { name: "Websites", icon: Globe, order: 2 },
+    apps: { name: "Apps", icon: LayoutGrid, order: 3 },
+    services: { name: "Services", icon: Network, order: 4 },
+    other: { name: "Other", icon: PackageOpen, order: 5 }
   }
 };

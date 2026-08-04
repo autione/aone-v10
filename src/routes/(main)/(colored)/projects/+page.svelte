@@ -4,17 +4,67 @@
   import { projectMeta } from "$lib/consts";
   import { resolve } from "$app/paths";
   
-  import { UserRound, UsersRound } from "@lucide/svelte";
+  import { Star, UserRound, UsersRound } from "@lucide/svelte";
 
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
 
   let { data }: { data: PageServerData } = $props();
+
+  const showingAll = $derived(!data.category || data.category === "all");
+  const sortedCategoryKeys = Object.keys(projectMeta.category).toSorted((a, b) => {
+    return projectMeta.category[a].order - projectMeta.category[b].order
+  });
+
+  const featured = $derived(data.projects.filter(p => p.featured));
+  const nonFeatured = $derived(data.projects.filter(p => !p.featured));
 </script>
 
 <svelte:head>
   <title>AutiOne / Projects</title>
 </svelte:head>
+
+{#snippet projectCard(project: typeof featured["0"])}
+  <a class="raw" href={resolve(`/projects/${project.id}`)}>
+    <main>
+      <img src={`https://files.auti.one/project-icons/${project.id}`} alt="Icon" />
+
+      <section>
+        <b title={project.title}>{project.title}</b>
+
+        <div>
+          {const status = projectMeta.status[project.status]}
+          {const category = projectMeta.category[project.category]}
+
+          {#if project.featured}
+            <span>
+              <Star size={16} />
+            </span>
+          {/if}
+
+          <span>
+            {project.timeframe[0]}{#if project.timeframe[0] !== project.timeframe[1]}-{project.timeframe[0] !== project.timeframe[1] && project.timeframe[1] === true ? "now" : project.timeframe[1]}{/if}
+          </span>
+
+          <span>
+            {const MemberIcon = project.contributors.length > 1 ? UsersRound : UserRound}
+            <MemberIcon size={16} />
+
+            {const CategoryIcon = category.icon}
+            <CategoryIcon size={16} />
+          </span>
+
+          <span style={`color: ${status.color};`}>
+            {const IconOf = status.icon}
+            <IconOf size={16} />
+          </span>
+        </div>
+      </section>
+    </main>
+
+    <p title={project.tagline}>{project.tagline}</p>
+  </a>
+{/snippet}
 
 <main class="base-page">
   <Header></Header>
@@ -37,50 +87,116 @@
     </Box>
   </section>
 
-  <section class="projects">
-    {#each data.projects! as project (project.id)}
-      <a class="raw" href={resolve(`/projects/${project.id}`)}>
-        <main>
-          <img src={`https://files.auti.one/project-icons/${project.id}`} alt="Icon" />
-  
-          <section>
-            <b title={project.title}>{project.title}</b>
-  
-            <div>
-              {const status = projectMeta.status[project.status]}
-              {const category = projectMeta.category[project.category]}
-  
-              <span>
-                {project.timeframe[0]}{#if project.timeframe[0] !== project.timeframe[1]}-{project.timeframe[0] !== project.timeframe[1] && project.timeframe[1] === true ? "now" : project.timeframe[1]}{/if}
-              </span>
-  
-              <span>
-                {const MemberIcon = project.contributors.length > 1 ? UsersRound : UserRound}
-                <MemberIcon size={16} />
-  
-                {const CategoryIcon = category.icon}
-                <CategoryIcon size={16} />
-              </span>
-  
-              <span style={`color: ${status.color};`}>
-                {const IconOf = status.icon}
-                <IconOf size={16} />
-              </span>
-            </div>
-          </section>
-        </main>
+  <div class="categories">
+    <a href={resolve(`/projects?c=all`)} class={showingAll ? "active raw" : "raw"}>
+      <Star />
+      everything
+    </a>
 
-        <p title={project.tagline}>{project.tagline}</p>
+    {#each sortedCategoryKeys as key (key)}
+      {const category = projectMeta.category[key]}
+      {const IconOf = category.icon}
+
+      <a href={resolve(`/projects?c=${key}`)} class={data.category === key ? "active raw" : "raw"}>
+        <IconOf />
+        {category.name.toLowerCase()}
       </a>
     {/each}
-  </section>
+  </div>
+
+  {#if showingAll}
+    <section class="group">
+      <b>featured</b>
+
+      <section class="projects">
+        {#each featured as project (project.id)}
+          {@render projectCard(project)}
+        {/each}
+      </section>
+    </section>
+
+    <section class="group">
+      <b>other projects</b>
+
+      <section class="projects">
+        {#each nonFeatured as project (project.id)}
+          {@render projectCard(project)}
+        {/each}
+      </section>
+    </section>
+  {:else}
+    <section class="projects">
+      {#each data.projects! as project (project.id)}
+        {@render projectCard(project)}
+      {/each}
+    </section>
+  {/if}
 </main>
 
 <style>
+  .categories {
+    background-color: var(--base-background);
+    border: 2px solid var(--base-accent);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .categories > a {
+    color: var(--base-foreground);
+    text-decoration: none;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.625rem;
+    transition: background-color 0.1s, color 0.1s;
+  }
+
+  .categories > a:hover {
+    background-color: var(--base-surface-off);
+  }
+
+  .categories > a.active {
+    background-color: var(--base-surface-on);
+    color: var(--base-active);
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: 100%;
+  }
+
+  .group > b {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: 1.5rem;
+  }
+
+  .group > b::after {
+    background-color: currentColor;
+    width: 100%;
+    height: 2px;
+
+    content: "";
+  }
+
   .projects {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
+    width: 100%;
   }
 
   @media screen and (max-width: 768px) {
