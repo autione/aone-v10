@@ -201,12 +201,6 @@
     width: 100%;
   }
 
-  @media screen and (max-width: 768px) {
-    .projects {
-      grid-template-columns: 1fr;
-    }
-  }
-
   .projects > a {
     display: flex;
     flex-direction: column;
@@ -282,5 +276,16 @@
   .projects > a > main section > div span:not(:last-child) {
     border-right: 1px solid var(--base-disabled);
     padding-right: 0.375rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .projects {
+      grid-template-columns: 1fr;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 </style>

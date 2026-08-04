@@ -8,15 +8,18 @@
   import Box from "$lib/components/Box.svelte";
 
   import { CalendarRange, Link2, Star, StarOff } from "@lucide/svelte";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
     import { resolve } from "$app/paths";
 
   let { data }: { data: PageServerData } = $props();
   
+  let downscrolled = $state(false);
   let viewerImage = $state("");
 </script>
 
+<svelte:window onscroll={() => (downscrolled = window.scrollY > 420)} />
+  
 <svelte:head>
   <title>AutiOne / Projects / {data.project!.title}</title>
 </svelte:head>
@@ -31,12 +34,13 @@
 
   <Header></Header>
 
+  {const categoryOf = projectMeta.category[data.project!.category]}
   {#if !!viewerImage}
     <button transition:fade={{ duration: 200, easing: quintOut }} onclick={() => viewerImage = ""} aria-label="Click to close image viewer" class="gallery-viewer" aria-hidden={!viewerImage}>
       <img src={viewerImage} alt="Gallery Preview" />
     </button>
   {/if}
-
+  
   <section class="project-info">
     <div class="row">
       <img src={`https://files.auti.one/project-icons/${data.project?.id}`} alt="Icon" />
@@ -48,7 +52,6 @@
 
     <main>
       <span>
-        {const categoryOf = projectMeta.category[data.project!.category]}
         <small>
           {const IconOf = categoryOf.icon}
 
@@ -112,43 +115,58 @@
       {/if}
     </main>
 
-    <Box label="info">
-      <section class="additional">
-        <b>Links</b>
-        
-        {#if data.project!.links.length > 0}
-          {#each data.project!.links as link, i (i)}
-            <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-            <a class="raw" style="width: 100%; text-decoration: none;" href={link.url} target="_blank">
-              <Button size="small" style="width: 100%; justify-content: space-between;">
-                {link.label}
-                <Link2 />
-              </Button>
-            </a>
-          {/each}
-        {:else}
-          <i class="notice">No project links</i>
-        {/if}
-      </section>
+    <aside>
+      {#if downscrolled}
+        <section transition:slide={{ duration: 125, easing: quintOut }} class="info-snippet">
+          <img src={`https://files.auti.one/project-icons/${data.project?.id}`} alt="Icon" />
+          <span>
+            <p>{data.project?.title}</p>
+            <small>
+              {const IconOf = categoryOf.icon}
 
-      <br />
+              <IconOf size={14} />
+              <p>{categoryOf.name.toUpperCase().substring(0, categoryOf.name.endsWith("s") ? categoryOf.name.length - 1 : undefined)}</p>
+            </small>
+          </span>
+        </section>
+      {/if}
 
-      <section class="additional">
-        <b>Contributors</b>
+      <Box label="info">
+        <section class="additional">
+          <b>Links</b>
+          
+          {#if data.project!.links.length > 0}
+            {#each data.project!.links as link, i (i)}
+              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+              <a class="raw" style="width: 100%; text-decoration: none;" href={link.url} target="_blank">
+                <Button size="small" style="width: 100%; justify-content: space-between;">
+                  {link.label}
+                  <Link2 />
+                </Button>
+              </a>
+            {/each}
+          {:else}
+            <i class="notice">No project links</i>
+          {/if}
+        </section>
 
-        {#if data.project!.contributors.length > 0}
-          {#each data.project!.contributors as contributor, i (i)}
-            <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-            <span class="contributor">
-              <p>{contributor.name}</p>
-              <small>{contributor.role}</small>
-            </span>
-          {/each}
-        {:else}
-          <i class="notice">No other contributors</i>
-        {/if}
-      </section>
-    </Box>
+        <section class="additional">
+          <b>Contributors</b>
+
+          {#if data.project!.contributors.length > 0}
+            {#each data.project!.contributors as contributor, i (i)}
+              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+              <span class="contributor">
+                <p>{contributor.name}</p>
+                <small>{contributor.role}</small>
+              </span>
+            {/each}
+          {:else}
+            <i class="notice">No other contributors</i>
+          {/if}
+        </section>
+      </Box>
+    </aside>
   </div>
 </main>
 
@@ -298,10 +316,62 @@
     gap: 2rem;
   }
 
+  .project-body > aside {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+
+    position: sticky;
+    top: 2rem;
+  }
+
+  .info-snippet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    background-color: var(--base-background);
+    border: 2px solid var(--base-accent);
+
+    font-size: 1.125rem;
+
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+  }
+
+  .info-snippet > img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .info-snippet > span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-snippet > span > p {
+    font-weight: 500;
+  }
+
+  .info-snippet > span > small {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.125rem;
+
+    font-size: 0.875rem;
+    opacity: 0.75;
+  }
+
   .additional {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .additional:not(:last-child) {
+    margin-bottom: 1rem;
   }
 
   .additional > b {
@@ -375,6 +445,16 @@
 
   @media screen and (max-width: 768px) {
     .project-info .details, .project-body {
+      grid-template-columns: 1fr;
+    }
+
+    .info-snippet {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    .gallery {
       grid-template-columns: 1fr;
     }
   }
