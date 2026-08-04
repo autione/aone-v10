@@ -4,7 +4,7 @@
   import { projectMeta } from "$lib/consts";
   import { resolve } from "$app/paths";
   
-  import { Star, UserRound, UsersRound } from "@lucide/svelte";
+  import { ArrowRight, Star, UserRound, UsersRound } from "@lucide/svelte";
 
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
@@ -63,6 +63,8 @@
     </main>
 
     <p title={project.tagline}>{project.tagline}</p>
+
+    <small>read more <ArrowRight size={14} /></small>
   </a>
 {/snippet}
 
@@ -248,6 +250,15 @@
 
   .projects > a > p {
     opacity: 0.75;
+  }
+  .projects > a > small {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+
+    font-weight: 500;
+    width: 100%;
   }
 
   .projects > a > main section > div,
