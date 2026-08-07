@@ -12,6 +12,14 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 
   const { session, user } = await auth.validateSessionToken(sessionToken);
 
+  if (user?.flags.includes("account-deactivated")) {
+    auth.deleteSessionTokenCookie(event);
+    event.locals.user = null;
+    event.locals.session = null;
+
+    return resolve(event);
+  }
+
   if (session) auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
   else auth.deleteSessionTokenCookie(event);
 

@@ -1,16 +1,12 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import type { ActionData } from "./$types";
   import type { LayoutServerData } from "../$types";
-
-  import { slide } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
 
   import Header from "$lib/components/Header.svelte";
 
-  import { Info, LogIn, OctagonX, SquareArrowRightEnter } from "@lucide/svelte";
+  import { Info, LogIn, SquareArrowRightEnter } from "@lucide/svelte";
 
-  let { form, data }: { form: ActionData; data: LayoutServerData } = $props();
+  let { data }: { data: LayoutServerData } = $props();
   let isSignUp = $state(false);
 </script>
 
@@ -83,13 +79,6 @@
         <button type="submit">enter <LogIn /></button>
       </form>
     {/if}
-
-    {#if form?.error}
-      <span transition:slide={{ duration: 200, easing: quintOut }} class="error">
-        <p>request failed with code <b>{form.error}</b></p>
-        <OctagonX size={16} />
-      </span>
-    {/if}
   </section>
 </main>
 
@@ -138,21 +127,6 @@
     margin: auto;
   }
 
-  .error {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 0.5rem 1rem;
-    gap: 0.375rem;
-
-    background-color: #c22648;
-    color: #fff;
-
-    font-size: 0.875rem;
-  }
-
   form {
     display: flex;
     flex-direction: column;
@@ -187,10 +161,6 @@
     transition-duration: 0.1s;
 
     cursor: pointer;
-  }
-
-  .wrapper:has(.error) form button {
-    border-bottom-width: 2px;
   }
 
   form button:not(:active):hover {

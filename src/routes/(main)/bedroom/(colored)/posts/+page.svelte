@@ -10,6 +10,7 @@
   import { CalendarDays, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, FileText, Globe, Hash, Lock, Pin, Plus, Search } from "@lucide/svelte";
   import { encodeHexLowerCase } from "@oslojs/encoding";
 
+  import { enhance } from "$app/forms";
   import { resolve } from "$app/paths";
   import { slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
@@ -63,7 +64,7 @@
   <section class="controls">
     <aside>
       {#if creating}
-        <form transition:slide={{ axis: "y", duration: 200, easing: quintOut }} method="post" action="?/create" class="create">
+        <form transition:slide={{ axis: "y", duration: 200, easing: quintOut }} method="post" action="?/create" class="create" use:enhance>
           <label for="id">
             <FileText />
             <input type="text" autocomplete="off" name="id" placeholder="insert id for new post..." bind:value={createId} />
@@ -124,7 +125,8 @@
 
   <section class="posts">
     {#each data.posts! as post (post.id)}
-      <a class="raw" href={resolve(`/bedroom/posts/${post.id}`)}>
+      {const canEdit = post.author.id === data.user?.id || data.user?.flags.includes("manage-posts:all")}
+      <a aria-disabled={!canEdit} class="raw" href={resolve(`/bedroom/posts/${post.id}`)}>
         <main>
           <span>
             <b title={post.title}>{post.title}</b>
@@ -335,6 +337,11 @@
 
   .posts > a:hover {
     background-color: color-mix(var(--base-background) 95%, var(--base-accent) 5%);
+  }
+
+  .posts > a[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.5;
   }
 
   .posts > a > img {

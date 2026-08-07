@@ -28,7 +28,7 @@ export const actions: Actions = {
     const validPassword = await verify(existingUser.passwordHash, password, auth.hashOptions);
     if (!validPassword) return fail(400, { error: "InvalidCredentials" });
 
-    if (existingUser.flags.includes("deactivated")) return redirect(303, "/bedroom/deactivated");
+    if (existingUser.flags.includes("account-deactivated")) return redirect(303, "/bedroom/deactivated");
 
     const sessionToken = auth.generateSessionToken();
     const session = await auth.createSession(sessionToken, existingUser.id);

@@ -18,6 +18,15 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions: Actions = {
   save: async (event) => {
+    const user = event.locals.user;
+    if (!user) return fail(401);
+
+    const post = (await db.select().from(table.post).where(eq(table.post.id, event.params.id))).at(0);
+    if (!post) return fail(404, { error: "PostNotFound", message: "Post not found" });
+
+    const canEdit = user.flags.includes("manage-posts:all") || (user.flags.includes("manage-posts") && post.authorId === user.id);
+    if (!canEdit) return fail(403);
+
     const formData = await event.request.formData();
 
     const title = formData.get("title") as string;
@@ -51,6 +60,15 @@ export const actions: Actions = {
     };
   },
   delete: async (event) => {
+    const user = event.locals.user;
+    if (!user) return fail(401);
+
+    const post = (await db.select().from(table.post).where(eq(table.post.id, event.params.id))).at(0);
+    if (!post) return fail(404, { error: "PostNotFound", message: "Post not found" });
+
+    const canDelete = user.flags.includes("manage-posts:all") || (user.flags.includes("manage-posts") && post.authorId === user.id);
+    if (!canDelete) return fail(403);
+
     await db.delete(table.post).where(eq(table.post.id, event.params.id));
     return redirect(303, "/bedroom/posts");
   }

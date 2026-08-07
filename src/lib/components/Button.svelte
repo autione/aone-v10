@@ -32,6 +32,7 @@
 
   button:disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   button[data-size="normal"] {
@@ -63,12 +64,12 @@
     color: var(--base-background);
   }
 
-  button[data-variant="primary"]:hover {
+  button[data-variant="primary"]:not(:disabled):hover {
     background-color: var(--base-background);
     color: var(--base-accent);
   }
 
-  button[data-variant="primary"]:active {
+  button[data-variant="primary"]:not(:disabled):active {
     background-color: var(--base-surface-off);
   }
 
@@ -77,11 +78,11 @@
     color: var(--base-foreground);
   }
 
-  button[data-variant="secondary"]:hover {
+  button[data-variant="secondary"]:not(:disabled):hover {
     background-color: var(--base-surface-off);
   }
 
-  button[data-variant="secondary"]:active {
+  button[data-variant="secondary"]:not(:disabled):active {
     background-color: var(--base-background);
   }
 
@@ -91,11 +92,11 @@
     color: var(--base-foreground);
   }
 
-  button[data-variant="tertiary"]:hover {
+  button[data-variant="tertiary"]:not(:disabled):hover {
     background-color: var(--base-surface-mid);
   }
 
-  button[data-variant="tertiary"]:active {
+  button[data-variant="tertiary"]:not(:disabled):active {
     background-color: var(--base-surface);
   }
 
@@ -104,13 +105,13 @@
       color: var(--base-active);
     }
 
-    button[data-variant="primary"]:hover {
+    button[data-variant="primary"]:not(:disabled):hover {
       color: var(--base-foreground);
     }
 
-    button[data-variant="primary"]:active,
-    button[data-variant="secondary"]:active,
-    button[data-variant="tertiary"]:active {
+    button[data-variant="primary"]:not(:disabled):active,
+    button[data-variant="secondary"]:not(:disabled):active,
+    button[data-variant="tertiary"]:not(:disabled):active {
       color: var(--base-active);
     }
   }

@@ -2,7 +2,7 @@
   import type { LayoutServerData } from "../../../$types";
   import type { ActionData, PageServerData } from "./$types";
   import { projectMeta } from "$lib/consts";
-  
+
   import PostMarkdown from "$lib/components/PostMarkdown.svelte";
   import Header from "$lib/components/Header.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -12,26 +12,25 @@
   import { enhance } from "$app/forms";
   import { fade } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+  import Project from "$lib/views/Project.svelte";
 
   const thisYear = new Date().getFullYear();
   let { form, data }: { form: ActionData; data: LayoutServerData & PageServerData } = $props();
-  
+
   let title = $derived(data.project?.title || "");
   let tagline = $derived(data.project?.tagline || "");
   let description = $derived(data.project?.description || "");
-  
+
   let timeframe: [number, number | true] = $derived(data.project?.timeframe || [thisYear, true]);
 
   let category = $derived(data.project?.category || "other");
   let status = $derived(data.project?.status || "deprecated");
   let featured = $derived(data.project?.featured || false);
   let visible = $derived(data.project?.visible || false);
-  
+
   let contributors = $derived(data.project?.contributors || []);
   let gallery = $derived(data.project?.gallery || []);
   let links = $derived(data.project?.links || []);
-
-  let viewerImage = $state("");
 
   let filePicker = $state(undefined as HTMLInputElement | undefined);
   let fileForm = $state(undefined as HTMLFormElement | undefined);
@@ -89,7 +88,7 @@
 
         formData.append("category", category);
         formData.append("status", status);
-        
+
         formData.append("contributors", JSON.stringify(contributors));
         formData.append("timeframe", JSON.stringify(timeframe));
         formData.append("gallery", JSON.stringify(gallery));
@@ -132,128 +131,34 @@
     </form>
   </div>
 
-  {#if !!viewerImage}
-    <button transition:fade={{ duration: 200, easing: quintOut }} onclick={() => viewerImage = ""} aria-label="Click to close image viewer" class="gallery-viewer" aria-hidden={!viewerImage}>
-      <img src={viewerImage} alt="Gallery Preview" />
-    </button>
-  {/if}
-
   {#if preview}
-    <section class="project-info">
-      <img src={`https://files.auti.one/project-icons/${data.project?.id}`} alt="Icon" />
+    <Project
+      project={{
+        ...data.project!,
 
-      <main>
-        <span>
-          {const categoryOf = projectMeta.category[category]}
-          <small>
-            {const IconOf = categoryOf.icon}
+        title,
+        tagline,
+        description,
 
-            <IconOf size={16} />
-            <p>{categoryOf.name.toUpperCase().substring(0, categoryOf.name.endsWith("s") ? categoryOf.name.length - 1 : undefined)}</p>
-          </small>
+        category,
+        status,
 
-          <b title={title}>{title}</b>
-          <p title={tagline}>{tagline}</p>
-        </span>
+        contributors,
+        timeframe,
+        gallery,
+        links,
 
-        <section class="details">
-          {const statusOf = projectMeta.status[status]}
-          
-          <div>
-            <b>Status</b>
-            <span style={`color: ${statusOf.color};`}>
-              {const IconOf = statusOf.icon}
-              <IconOf />
-              <p>{statusOf.label}</p>
-            </span>
-          </div>
-
-          <div>
-            <b>Period</b>
-            <span>
-              <CalendarRange />
-              <p>
-                {timeframe[0]}{#if timeframe[0] !== timeframe[1]}-{timeframe[0] !== timeframe[1] && timeframe[1] === true ? "now" : timeframe[1]}{/if}
-              </p>
-            </span>
-          </div>
-
-          <div>
-            <b>Featured</b>
-            <span>
-              {#if featured}<Star />{:else}<StarOff />{/if}
-              {featured ? "Yes" : "No"}
-            </span>
-          </div>
-        </section>
-      </main>
-    </section>
-
-    <div class="project-body">
-      <main>
-        <Box label="description" class="markdown-content">
-          <PostMarkdown source={description} />
-        </Box>
-
-        {#if gallery.length > 0}
-          <Box label="gallery">
-            <div class="gallery">
-              {#each gallery as url, i (i)}
-                <button onclick={() => viewerImage = url}>
-                  <img src={url} alt={`Image ${i + 1}`} />
-                </button>
-              {/each}
-            </div>
-          </Box>
-        {/if}
-      </main>
-
-      <Box label="info">
-        <section class="additional">
-          <b>Links</b>
-          
-          {#if links.length > 0}
-            {#each links as link, i (i)}
-              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-              <a class="raw" style="width: 100%; text-decoration: none;" href={link.url} target="_blank">
-                <Button size="small" style="width: 100%; justify-content: space-between;">
-                  {link.label}
-                  <Link2 />
-                </Button>
-              </a>
-            {/each}
-          {:else}
-            <i class="notice">No project links</i>
-          {/if}
-        </section>
-
-        <br />
-
-        <section class="additional">
-          <b>Contributors</b>
-
-          {#if contributors.length > 0}
-            {#each contributors as contributor, i (i)}
-              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-              <span class="contributor">
-                <p>{contributor.name}</p>
-                <small>{contributor.role}</small>
-              </span>
-            {/each}
-          {:else}
-            <i class="notice">No other contributors</i>
-          {/if}
-        </section>
-      </Box>
-    </div>
+        featured,
+        visible
+      }}
+      inEditor
+    ></Project>
   {:else}
     <Box label="project">
       <div class="editor-info">
         <div class="icon">
           <img src={`https://files.auti.one/project-icons/${data.project?.id}`} alt="Project Icon" />
-          <Button onclick={() => filePicker?.click()} variant="tertiary" size="small">
-            upload new icon
-          </Button>
+          <Button onclick={() => filePicker?.click()} variant="tertiary" size="small">upload new icon</Button>
         </div>
 
         <section class="meta">
@@ -277,10 +182,14 @@
             <div>
               <input type="number" min={2007} max={typeof timeframe[1] === "number" ? timeframe[1] : thisYear} name="year-start" bind:value={timeframe[0]} />
 
-              <Button onclick={() => timeframe = [timeframe[0], timeframe[1] === true ? thisYear : true]} size="icon" variant="tertiary">
-                {#if timeframe[1] === true} <InfinityIcon /> {:else} <ArrowRight /> {/if}
+              <Button onclick={() => (timeframe = [timeframe[0], timeframe[1] === true ? thisYear : true])} size="icon" variant="tertiary">
+                {#if timeframe[1] === true}
+                  <InfinityIcon />
+                {:else}
+                  <ArrowRight />
+                {/if}
               </Button>
-              
+
               {#if typeof timeframe[1] === "number"}
                 <input type="number" min={timeframe[0]} max={thisYear} name="year-end" bind:value={timeframe[1]} />
               {:else}
@@ -302,9 +211,33 @@
           <label style="grid-area: d;" for="">
             <span>visibility</span>
             <div>
-              <Button onclick={() => { featured = true; visible = true }} variant={featured && visible ? "primary" : "tertiary"} size="small" style="width: 100%; justify-content: center;">featured</Button>
-              <Button onclick={() => { featured = false; visible = true }} variant={!featured && visible ? "primary" : "tertiary"} size="small" style="width: 100%; justify-content: center;">visible</Button>
-              <Button onclick={() => { featured = false; visible = false }} variant={!visible ? "primary" : "tertiary"} size="small" style="width: 100%; justify-content: center;">hidden</Button>
+              <Button
+                onclick={() => {
+                  featured = true;
+                  visible = true;
+                }}
+                variant={featured && visible ? "primary" : "tertiary"}
+                size="small"
+                style="width: 100%; justify-content: center;">featured</Button
+              >
+              <Button
+                onclick={() => {
+                  featured = false;
+                  visible = true;
+                }}
+                variant={!featured && visible ? "primary" : "tertiary"}
+                size="small"
+                style="width: 100%; justify-content: center;">visible</Button
+              >
+              <Button
+                onclick={() => {
+                  featured = false;
+                  visible = false;
+                }}
+                variant={!visible ? "primary" : "tertiary"}
+                size="small"
+                style="width: 100%; justify-content: center;">hidden</Button
+              >
             </div>
           </label>
         </section>
@@ -319,24 +252,28 @@
     <Box label="gallery">
       <div class="editor-gallery">
         {#each gallery as url, i (i)}
-          <button onclick={() => {
-            const newUrl = prompt(`change image #${i+1} url:`, url);
-            if (newUrl === null) return;
+          <button
+            onclick={() => {
+              const newUrl = prompt(`change image #${i + 1} url:`, url);
+              if (newUrl === null) return;
 
-            const copy = [...gallery];
-            if (newUrl.length <= 0) copy.splice(i, 1);
-            else copy[i] = newUrl;
+              const copy = [...gallery];
+              if (newUrl.length <= 0) copy.splice(i, 1);
+              else copy[i] = newUrl;
 
-            gallery = copy;
-          }}>
+              gallery = copy;
+            }}
+          >
             <img src={url} alt={`Image ${i + 1}`} />
           </button>
         {/each}
 
-        <button onclick={() => {
+        <button
+          onclick={() => {
             const newUrl = prompt("add image url:");
-            if (newUrl !== null && newUrl.length > 0) gallery = [...gallery, newUrl]
-        }}>
+            if (newUrl !== null && newUrl.length > 0) gallery = [...gallery, newUrl];
+          }}
+        >
           <Plus />
         </button>
       </div>
@@ -348,14 +285,14 @@
           <div>
             <input placeholder="contributor name..." bind:value={contributor.name} />
             <input placeholder="contributor role..." bind:value={contributor.role} />
-            <Button size="icon" onclick={() => contributors = contributors.filter((_, j) => j !== i)}><X /></Button>
+            <Button size="icon" onclick={() => (contributors = contributors.filter((_, j) => j !== i))}><X /></Button>
           </div>
         {/each}
       </section>
 
-      <br/>
+      <br />
 
-      <Button style="margin: 0 auto;" size="tiny" onclick={() => contributors = [...contributors, { name: "", role: "" }]}><Plus /> add contributor</Button>
+      <Button style="margin: 0 auto;" size="tiny" onclick={() => (contributors = [...contributors, { name: "", role: "" }])}><Plus /> add contributor</Button>
     </Box>
 
     <Box label="links">
@@ -364,14 +301,14 @@
           <div>
             <input placeholder="insert label..." bind:value={link.label} />
             <input placeholder="insert url..." bind:value={link.url} />
-            <Button size="icon" onclick={() => links = links.filter((_, j) => j !== i)}><X /></Button>
+            <Button size="icon" onclick={() => (links = links.filter((_, j) => j !== i))}><X /></Button>
           </div>
         {/each}
       </section>
 
-      <br/>
+      <br />
 
-      <Button style="margin: 0 auto;" size="tiny" onclick={() => links = [...links, { label: "", url: "" }]}><Plus /> add link</Button>
+      <Button style="margin: 0 auto;" size="tiny" onclick={() => (links = [...links, { label: "", url: "" }])}><Plus /> add link</Button>
     </Box>
   {/if}
 </main>
@@ -467,7 +404,7 @@
     background-color: transparent;
     outline: none;
     border: none;
-    
+
     color: inherit;
     font: inherit;
 
@@ -520,7 +457,7 @@
     align-items: center;
     gap: 0.5rem;
   }
-  
+
   .editor-gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -543,7 +480,9 @@
     color: var(--base-foreground);
     border: none;
 
-    transition: background-color 0.1s, box-shadow 0.1s;
+    transition:
+      background-color 0.1s,
+      box-shadow 0.1s;
   }
 
   .editor-gallery > button:hover {
@@ -557,34 +496,6 @@
     object-fit: contain;
   }
 
-  .gallery-viewer {
-    position: fixed;
-    left: 0;
-    top: 0;
-
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    
-    background-color: #000a;
-    backdrop-filter: blur(2px);
-    border: none;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-
-    transition: opacity 0.1s;
-  }
-
-  .gallery-viewer > img {
-    max-width: calc(100vw - 2rem);
-    max-height: calc(100vh - 2rem);
-
-    transition: scale 0.1s;
-  }
-
   .editor-input-grid {
     display: flex;
     flex-direction: column;
@@ -596,186 +507,6 @@
     grid-template-columns: 1fr 1fr max-content;
     align-items: center;
     gap: 0.5rem;
-  }
-
-  .project-info {
-    background-color: var(--base-background);
-    border: 2px solid var(--base-accent);
-    
-    width: 100%;
-    padding: 1.5rem;
-    margin-top: 3rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .project-info > img {
-    width: 6.5rem;
-    height: 6.5rem;
-    margin-top: -5rem;
-    
-    border: 4px solid var(--base-background);
-    box-shadow: 0 0 0 2px var(--base-accent);
-    
-    background-color: var(--base-background);
-    color: transparent;
-  }
-
-  .project-info main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .project-info main > span {
-    display: grid;
-    grid-template-rows: max-content max-content max-content;
-    width: 100%;
-  }
-
-  .project-info main > span > small {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    
-    margin-bottom: -0.125rem;
-    gap: 0.125rem;
-
-    font-size: 1rem;
-    font-weight: bold;
-
-    opacity: 0.75;
-  }
-
-  .project-info main > span > b {
-    font-size: 1.75rem;
-  }
-
-  .project-info main > span > p {
-    font-size: 1.25rem;
-    opacity: 0.75;
-
-    margin: 0.25rem 0;
-  }
-
-  .project-info .details {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-    width: 100%;
-  }
-
-  .project-info .details div {
-    display: flex;
-    flex-direction: column;
-    padding: 0.75rem;
-    gap: 0.25rem;
-
-    border: 2px solid var(--base-surface-mid);
-  }
-
-  .project-info .details b {
-    text-transform: uppercase;
-    opacity: 0.75;
-  }
-
-  .project-info .details span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.25rem;
-
-    font-size: 1.25rem;
-  }
-
-  .project-body {
-    display: grid;
-    grid-template-columns: 1fr 0.5fr;
-    gap: 2rem;
-    width: 100%;
-  }
-
-  .project-body > main {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .additional {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .additional > b {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-
-    text-transform: uppercase;
-    font-size: 1rem;
-    width: 100%;
-  }
-
-  .additional > b::after {
-    content: "";
-    width: 100%;
-    height: 2px;
-    background-color: var(--base-disabled);
-  }
-
-  .contributor {
-    width: 100%;
-    border: 2px solid var(--base-surface-mid);
-    padding: 0.625rem 0.75rem;
-  }
-
-  .contributor > * {
-    width: 100%;
-  }
-
-  .contributor small {
-    opacity: 0.75;
-  }
-
-  .notice {
-    background-color: var(--base-surface-off);
-    padding: 0.375rem 0;
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  .gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  .gallery > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: transparent;
-    cursor: pointer;
-    border: none;
-
-    width: 100%;
-    padding: 0;
-
-    transition: box-shadow 0.1s;
-  }
-
-  .gallery > button:hover {
-    box-shadow: 0 0 0 2px var(--base-accent);
-  }
-
-  .gallery > button img {
-    width: 100%;
   }
 
   @media screen and (max-width: 768px) {
@@ -799,10 +530,6 @@
     .editor-info .details {
       display: flex;
       flex-direction: column;
-    }
-
-    .project-info .details, .project-body {
-      grid-template-columns: 1fr;
     }
   }
 </style>

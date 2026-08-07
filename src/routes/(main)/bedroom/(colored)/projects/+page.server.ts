@@ -39,7 +39,9 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions: Actions = {
   create: async (event) => {
-    if (!event.locals.user) return fail(401);
+    const user = event.locals.user;
+    if (!user) return fail(401);
+    if (!user.flags.includes("manage-projects")) return fail(403);
 
     const formData = await event.request.formData();
     const id = formData.get("id") as string;

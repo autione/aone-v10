@@ -20,6 +20,10 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions: Actions = {
   save: async (event) => {
+    const user = event.locals.user;
+    if (!user) return fail(401);
+    if (!user.flags.includes("manage-projects")) return fail(403);
+
     const formData = await event.request.formData();
 
     const title = formData.get("title") as string;
@@ -77,6 +81,10 @@ export const actions: Actions = {
   },
 
   delete: async (event) => {
+    const user = event.locals.user;
+    if (!user) return fail(401);
+    if (!user.flags.includes("manage-projects")) return fail(403);
+
     await db.delete(table.project).where(eq(table.project.id, event.params.id));
 
     try {

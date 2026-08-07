@@ -61,7 +61,9 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions: Actions = {
   create: async (event) => {
-    if (!event.locals.user) return fail(401);
+    const user = event.locals.user;
+    if (!user) return fail(401);
+    if (!user.flags.includes("manage-posts")) return fail(403);
 
     const formData = await event.request.formData();
     const id = formData.get("id") as string;
@@ -74,7 +76,7 @@ export const actions: Actions = {
       content: "",
       createdAt: new Date(),
       visibility: "private",
-      authorId: event.locals.user.id
+      authorId: user.id
     });
 
     return redirect(303, `/bedroom/posts/${id}`);

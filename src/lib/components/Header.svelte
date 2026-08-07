@@ -1,6 +1,10 @@
 <script lang="ts">
+  /* eslint-disable svelte/no-unused-svelte-ignore */
   import type { LayoutServerData } from "../../routes/(main)/bedroom/$types";
+
+  import type { UserFlag } from "$lib/server/db/schema";
   import type { ResolvedPathname } from "$app/types";
+
   import { enhance } from "$app/forms";
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
@@ -20,15 +24,18 @@
   interface HeaderLink {
     label: string;
     path: ResolvedPathname | string;
+    flags?: UserFlag[];
   }
 
   const isCurrent = (path: string) => page.url.pathname === path;
 
   const links: HeaderLink[] =
+    // svelte-ignore state_referenced_locally
     bedroom !== undefined
       ? [
-          { label: "projects", path: resolve("/bedroom/projects") },
-          { label: "posts", path: resolve("/bedroom/posts") }
+          { label: "projects", path: resolve("/bedroom/projects"), flags: ["manage-projects"] },
+          { label: "posts", path: resolve("/bedroom/posts"), flags: ["manage-posts"] },
+          { label: "users", path: resolve("/bedroom/users"), flags: ["manage-users", "invite-users"] }
         ]
       : [
           { label: "myself", path: resolve("/myself") },
@@ -47,7 +54,9 @@
   <nav>
     {#if !page.url.pathname.endsWith("login")}
       {#each links as link (link.label)}
-        <a class={`raw ${isCurrent(link.path) ? "selected" : ""}`} href={link.path as ResolvedPathname}>{link.label}</a>
+        {#if !link.flags || link.flags.some((f) => bedroom?.user?.flags.includes(f))}
+          <a class={`raw ${isCurrent(link.path) ? "selected" : ""}`} href={link.path as ResolvedPathname}>{link.label}</a>
+        {/if}
       {/each}
     {/if}
   </nav>
@@ -78,6 +87,12 @@
               copy id <Copy size={20} />
             </Button>
 
+            <a class="raw" href={resolve("/")}>
+              <Button variant="secondary" size="small">
+                leave bedroom <DoorOpen size={20} />
+              </Button>
+            </a>
+
             <form onsubmit={() => (dropdown = false)} method="post" action="/bedroom?/logout" use:enhance>
               <Button type="submit" size="small">
                 disconnect <LogOut size={20} />
@@ -86,7 +101,7 @@
           </footer>
         </div>
       {:else}
-        <a class="raw" href={resolve("/")}>
+        <a class="raw" style="text-decoration: none;" href={resolve("/")}>
           <Button size="tiny">return</Button>
         </a>
       {/if}
@@ -108,10 +123,9 @@
             </Button>
           </a>
 
-          <a style="pointer-events: none; opacity: 0.5;" class="raw" href="https://github.com/autione/aone-v10" target="_blank">
+          <a class="raw" href="https://github.com/autione/aone-v10" target="_blank">
             <Button variant="secondary" size="small">
-              <!-- view source <CodeXml size={20} /> -->
-              source soon™ <CodeXml size={20} />
+              view source <CodeXml size={20} />
             </Button>
           </a>
         </footer>

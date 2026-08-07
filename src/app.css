@@ -148,7 +148,7 @@ textarea:not(.raw) {
   border: 2px solid var(--base-accent);
   outline: none;
 
-  transition-property: background-color;
+  transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
   transition-duration: 0.1s;
 }
@@ -167,6 +167,66 @@ textarea:not(.raw):not([data-preserve-contrast]):read-only,
 select:not(.raw):not([data-preserve-contrast]):disabled {
   border-color: var(--base-surface-mid);
   color: var(--base-disabled);
+}
+
+input[data-spoiler="true"]:not(.raw):not(:focus):not(:hover),
+textarea[data-spoiler="true"]:not(.raw):not(:focus):not(:hover) {
+  background-color: var(--base-disabled);
+  border-color: var(--base-surface-mid);
+  color: transparent;
+}
+
+form.with-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form.with-layout > main {
+  display: grid;
+  gap: 1rem;
+}
+
+form.with-layout > footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 100%;
+}
+
+form.with-layout label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+form.with-layout label > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+}
+
+form.with-layout label > span small {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+form.with-layout label:has(input:focus) > span small {
+  display: flex;
+}
+
+form.with-layout label > div {
+  position: relative;
+  width: 100%;
 }
 
 .avatar {
@@ -199,6 +259,10 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 0.5rem;
+}
+
+.intro.collapse-aside {
+  grid-template-columns: 1fr max-content;
 }
 
 .intro .greeting {
@@ -249,7 +313,7 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
 
 @media screen and (max-width: 520px) {
   .intro {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     justify-content: center;
     text-align: center;
   }
@@ -257,6 +321,22 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
   .intro .chips {
     justify-content: center;
   }
+}
+
+.box-intro {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  padding-bottom: 0.75rem;
+}
+
+.box-intro > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-intro > div span {
+  font-style: italic;
+  color: var(--base-disabled);
 }
 
 *[data-hover-palette="red"]:hover {
@@ -397,7 +477,7 @@ select:not(.raw):not([data-preserve-contrast]):disabled {
 
   overflow: hidden;
   text-overflow: clip;
-  white-space: break-all;
+  white-space: nowrap;
 }
 
 .nav-loader .pending svg,

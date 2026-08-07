@@ -8,6 +8,8 @@
   import Box from "$lib/components/Box.svelte";
 
   import { CalendarRange, EyeOff, FileBox, Image, Link2, Plus, Search, Star, UsersRound } from "@lucide/svelte";
+  
+  import { enhance } from "$app/forms";
   import { resolve } from "$app/paths";
   import { slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
@@ -46,7 +48,7 @@
   <section class="controls">
     <aside>
       {#if creating}
-        <form transition:slide={{ axis: "y", duration: 200, easing: quintOut }} method="post" action="?/create" class="create">
+        <form transition:slide={{ axis: "y", duration: 200, easing: quintOut }} method="post" action="?/create" class="create" use:enhance>
           <label for="id">
             <FileBox />
             <input type="text" autocomplete="off" name="id" placeholder="insert id for new project..." bind:value={createId} />

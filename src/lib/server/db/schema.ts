@@ -1,7 +1,8 @@
 import { relations } from "drizzle-orm";
 import { pgTable, pgEnum, text, timestamp, integer, json, boolean } from "drizzle-orm/pg-core";
 
-export type UserFlag = "admin" | "deactivated";
+// these flags can be completely arbitrary strings in DB. they're only typed for convenience.
+export type UserFlag = "invite-users" | "manage-users" | "manage-posts" | "manage-posts:all" | "manage-projects" | "account-protected" | "account-deactivated";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
