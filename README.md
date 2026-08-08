@@ -1,8 +1,10 @@
-# 🌈 auti.one v10
+<img src=".github/splash.png" alt="scaffolding" />
+
+## 📄 about
 
 this is like, the result of when I lock in for real and decide I need to finish my website once and for all. **none of my work here was made with AI, including this README.**
 
-### 🌠 highlights
+## 🌠 highlights
 
 - ✏️ a bunch of colored text
 - 🎨 nice theme palette generation with CSS
@@ -13,7 +15,7 @@ this is like, the result of when I lock in for real and decide I need to finish 
 - 👥 friends section that _is_ hardcoded
 - 🎀 non-binary
 
-### 📦 stuff used
+## 📦 stuff used
 
 - ⚙️ typescript, my beloved
 - 🌩️ sveltekit + vite, they're awesome
@@ -21,4 +23,4 @@ this is like, the result of when I lock in for real and decide I need to finish 
 - 💾 drizzle, for database management
 - 🌐 vercel, for site hosting
 
-## [check it out!](https://auti.one/)
+### [check it out!](https://auti.one/)
