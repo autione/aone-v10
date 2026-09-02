@@ -399,14 +399,14 @@
     gap: 0.5rem;
   }
 
-  .widget > main > span {
+  /* .widget > main > span {
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100%;
     height: 100%;
-  }
+  } */
 
   .widget > main section {
     display: grid;
