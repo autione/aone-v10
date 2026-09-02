@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-  <title>AutiOne / Bedroom / Posts / {title}</title>
+  <title>AutiOne / Bedroom / Articles / {title}</title>
 </svelte:head>
 
 <svelte:window onscroll={() => (downscrolled = window.scrollY > 96)} />

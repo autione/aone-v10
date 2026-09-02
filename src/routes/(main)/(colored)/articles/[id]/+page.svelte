@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>AutiOne / Archives / {data.post?.title}</title>
+  <title>AutiOne / Articles / {data.post?.title}</title>
 </svelte:head>
 
 <main class="base-page extended" style="align-items: center;">
