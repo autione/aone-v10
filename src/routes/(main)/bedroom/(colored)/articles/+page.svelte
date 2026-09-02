@@ -126,7 +126,7 @@
   <section class="posts">
     {#each data.posts! as post (post.id)}
       {const canEdit = post.author.id === data.user?.id || data.user?.flags.includes("manage-posts:all")}
-      <a aria-disabled={!canEdit} class="raw" href={resolve(`/bedroom/posts/${post.id}`)}>
+      <a aria-disabled={!canEdit} class="raw" href={resolve(`/bedroom/articles/${post.id}`)}>
         <main>
           <span>
             <b title={post.title}>{post.title}</b>
