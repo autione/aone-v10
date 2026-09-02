@@ -6,6 +6,7 @@
   <style>
     :root {
       --host-background: color-mix(in srgb, var(--base-accent) 10%, #fff 90%);
+      --base-foreground: var(--base-accent);
 
       --base-grid: rgb(from var(--base-foreground) r g b / 0.1);
       --base-surface: rgb(from var(--base-foreground) r g b / 0.05);

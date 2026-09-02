@@ -53,16 +53,17 @@
     <section class="details">
       {const statusOf = projectMeta.status[project!.status]}
       
-      <div>
-        <b>Status</b>
-        <span style={`color: ${statusOf.color};`}>
+      <div class="status" style={`grid-area: a; background-color: ${statusOf.color}`}>
+        <span>
           {const IconOf = statusOf.icon}
           <IconOf />
           <p>{statusOf.label}</p>
         </span>
+
+        <p>{statusOf.description}</p>
       </div>
 
-      <div>
+      <div style="grid-area: b;">
         <b>Period</b>
         <span>
           <CalendarRange />
@@ -72,7 +73,7 @@
         </span>
       </div>
 
-      <div>
+      <div style="grid-area: c;">
         <b>Featured</b>
         <span>
           {#if project!.featured}<Star />{:else}<StarOff />{/if}
@@ -261,7 +262,11 @@
 
   .project-info .details {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "a a"
+      "b c";
+
     gap: 0.5rem;
     width: 100%;
   }
@@ -287,6 +292,14 @@
     gap: 0.25rem;
 
     font-size: 1.25rem;
+  }
+
+  .project-info .details .status {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #fff;
   }
 
   .project-body {
@@ -437,6 +450,12 @@
     .project-info .details,
     .project-body {
       grid-template-columns: 1fr;
+    }
+
+    .project-info .details .status {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
     }
 
     .info-snippet {

@@ -22,8 +22,7 @@
 
   <style>
     :root {
-      --base-accent: #296fbf;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-blue);
     }
   </style>
 

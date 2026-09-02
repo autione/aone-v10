@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-  <title>AutiOne / Archives</title>
+  <title>AutiOne / Articles</title>
 </svelte:head>
 
 <main class="base-page">
@@ -30,15 +30,14 @@
 
   <style>
     :root {
-      --base-accent: #36835f;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-green);
     }
   </style>
 
   <section class="intro">
     <div class="greeting">
       <p class="cursive">dive into the</p>
-      <h1>archives</h1>
+      <h1>articles</h1>
     </div>
 
     <Box>
@@ -62,7 +61,7 @@
 
   <section class="posts">
     {#each data.posts! as post (post.id)}
-      <a class="raw" href={resolve(`/archives/${post.id}`)}>
+      <a class="raw" href={resolve(`/articles/${post.id}`)}>
         <main>
           <span>
             <b title={post.title}>{post.title}</b>

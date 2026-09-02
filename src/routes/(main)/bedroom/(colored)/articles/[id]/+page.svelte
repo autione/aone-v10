@@ -34,7 +34,7 @@
 <main class="base-page extended" style="align-items: center;">
   <style>
     :root {
-      --base-accent: #36835f;
+      --base-accent: var(--tint-green);
       --base-foreground: var(--base-accent);
     }
   </style>

@@ -18,8 +18,7 @@
 
   <style>
     :root {
-      --base-accent: #c22648;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-red);
     }
   </style>
 
@@ -151,7 +150,7 @@
           </span>
 
           <span>
-            <MaskedIcon i="/brands/software/steam.svg" size={24} color="var(--neutral-invert)" />
+            <MaskedIcon i="/brands/steam.svg" size={24} color="var(--neutral-invert)" />
             <p>
               <span>Steam</span>
               <small>distribution & SDKs</small>

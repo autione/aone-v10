@@ -37,7 +37,7 @@
 </script>
 
 <svelte:head>
-  <title>AutiOne / Bedroom / Posts</title>
+  <title>AutiOne / Bedroom / Articles</title>
 </svelte:head>
 
 <main class="base-page">
@@ -45,7 +45,7 @@
 
   <style>
     :root {
-      --base-accent: #36835f;
+      --base-accent: var(--tint-green);
       --base-foreground: var(--base-accent);
     }
   </style>
@@ -53,7 +53,7 @@
   <section class="intro">
     <div class="greeting">
       <p class="cursive">manage your</p>
-      <h1>posts</h1>
+      <h1>articles</h1>
     </div>
 
     <Box>

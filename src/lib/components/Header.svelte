@@ -13,6 +13,7 @@
 
   import MaskedIcon from "./MaskedIcon.svelte";
   import Button from "./Button.svelte";
+  import { version } from "$lib/consts";
 
   interface HeaderProps {
     bedroom?: LayoutServerData;
@@ -34,15 +35,16 @@
     bedroom !== undefined
       ? [
           { label: "projects", path: resolve("/bedroom/projects"), flags: ["manage-projects"] },
-          { label: "posts", path: resolve("/bedroom/posts"), flags: ["manage-posts"] },
+          { label: "articles", path: resolve("/bedroom/articles"), flags: ["manage-posts"] },
           { label: "users", path: resolve("/bedroom/users"), flags: ["manage-users", "invite-users"] }
         ]
       : [
           { label: "myself", path: resolve("/myself") },
           { label: "projects", path: resolve("/projects") },
           { label: "socials", path: resolve("/socials") },
-          { label: "archives", path: resolve("/archives") },
+          { label: "articles", path: resolve("/articles") },
           { label: "fellows", path: resolve("/fellows") }
+          // { label: "library", path: resolve("/library") }
         ];
 </script>
 
@@ -113,7 +115,7 @@
       <div class={`dropdown ${dropdown ? "active" : ""}`}>
         <span>
           <b>auti.one</b>
-          <small>version 10</small>
+          <small>version {version}</small>
         </span>
 
         <footer>

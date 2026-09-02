@@ -58,7 +58,7 @@ export const inviteKey = pgTable("invites", {
 type ProjectLink = { label: string; url: string };
 type ProjectContributor = { name: string; role: string };
 
-export const projectStatus = pgEnum("project_status", ["active", "developing", "paused", "deprecated"]);
+export const projectStatus = pgEnum("project_status", ["active", "supported", "developing", "paused", "deprecated"]);
 export const projectCategory = pgEnum("project_category", ["games", "websites", "apps", "services", "other"]);
 
 export const project = pgTable("projects", {

@@ -1,0 +1,156 @@
+:root:has(*[data-effect-palette]) * {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.1s;
+}
+
+*[data-effect-palette="discord"] {
+  --tint: #5865f2;
+}
+
+:root:has(*[data-effect-palette="discord"]:hover) {
+  --base-accent: #5865f2 !important;
+}
+
+*[data-effect-palette="github"] {
+  --tint: #444343;
+}
+
+:root:has(*[data-effect-palette="github"]:hover) {
+  --base-accent: #444343 !important;
+}
+
+*[data-effect-palette="reddit"] {
+  --tint: #e23c00;
+}
+
+:root:has(*[data-effect-palette="reddit"]:hover) {
+  --base-accent: #e23c00 !important;
+}
+
+*[data-effect-palette="bluesky"] {
+  --tint: #0b74e4;
+}
+
+:root:has(*[data-effect-palette="bluesky"]:hover) {
+  --base-accent: #0b74e4 !important;
+}
+
+*[data-effect-palette="mastodon"] {
+  --tint: #5252df;
+}
+
+:root:has(*[data-effect-palette="mastodon"]:hover) {
+  --base-accent: #5252df !important;
+}
+
+*[data-effect-palette="tumblr"] {
+  --tint: #36465d;
+}
+
+:root:has(*[data-effect-palette="tumblr"]:hover) {
+  --base-accent: #36465d !important;
+}
+
+*[data-effect-palette="twitter"] {
+  --tint: #007acc;
+}
+
+:root:has(*[data-effect-palette="twitter"]:hover) {
+  --base-accent: #007acc !important;
+}
+
+*[data-effect-palette="youtube"] {
+  --tint: #d40e0e;
+}
+
+:root:has(*[data-effect-palette="youtube"]:hover) {
+  --base-accent: #d40e0e !important;
+}
+
+*[data-effect-palette="twitch"] {
+  --tint: #7930e6;
+}
+
+:root:has(*[data-effect-palette="twitch"]:hover) {
+  --base-accent: #7930e6 !important;
+}
+
+*[data-effect-palette="spotify"] {
+  --tint: #188a40;
+}
+
+:root:has(*[data-effect-palette="spotify"]:hover) {
+  --base-accent: #188a40 !important;
+}
+
+*[data-effect-palette="kofi"] {
+  --tint: #e75c31;
+}
+
+:root:has(*[data-effect-palette="kofi"]:hover) {
+  --base-accent: #e75c31 !important;
+}
+
+*[data-effect-palette="steam"] {
+  --tint: #2f4b58;
+}
+
+:root:has(*[data-effect-palette="steam"]:hover) {
+  --base-accent: #2f4b58 !important;
+}
+
+*[data-effect-palette="xbox"] {
+  --tint: #137c13;
+}
+
+:root:has(*[data-effect-palette="xbox"]:hover) {
+  --base-accent: #137c13 !important;
+}
+
+*[data-effect-palette="playstation"] {
+  --tint: #0070d1;
+}
+
+:root:has(*[data-effect-palette="playstation"]:hover) {
+  --base-accent: #0070d1 !important;
+}
+
+*[data-effect-palette="roblox"] {
+  --tint: #454753;
+}
+
+:root:has(*[data-effect-palette="roblox"]:hover) {
+  --base-accent: #454753 !important;
+}
+
+*[data-effect-palette="osu"] {
+  --tint: #e0478c;
+}
+
+:root:has(*[data-effect-palette="osu"]:hover) {
+  --base-accent: #e0478c !important;
+}
+
+*[data-effect-palette="tetrio"] {
+  --tint: #534cac;
+}
+
+:root:has(*[data-effect-palette="tetrio"]:hover) {
+  --base-accent: #534cac !important;
+}
+
+*[data-effect-palette="battlenet"] {
+  --tint: #396faa;
+}
+
+:root:has(*[data-effect-palette="battlenet"]:hover) {
+  --base-accent: #396faa !important;
+}
+
+*[data-effect-palette="bungienet"] {
+  --tint: #0075bb;
+}
+
+:root:has(*[data-effect-palette="bungienet"]:hover) {
+  --base-accent: #0075bb !important;
+}

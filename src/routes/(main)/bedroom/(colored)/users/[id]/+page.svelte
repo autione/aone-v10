@@ -25,7 +25,7 @@
 <main class="base-page">
   <style>
     :root {
-      --base-accent: #296fbf;
+      --base-accent: var(--tint-blue);
       --base-foreground: var(--base-accent);
     }
   </style>

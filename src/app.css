@@ -23,6 +23,13 @@
   --base-surface-mid: #0000001c;
   --base-surface-on: #000;
 
+  --tint-red: #c22648;
+  --tint-orange: #bd5326;
+  --tint-yellow: #9c6b02;
+  --tint-green: #2e6e50;
+  --tint-blue: #296fbf;
+  --tint-purple: #6a44b8;
+
   color: var(--base-foreground);
 }
 
@@ -144,11 +151,14 @@ textarea:not(.raw) {
   font: inherit;
   padding: 0.5rem;
 
-  background-color: transparent;
+  background-color: var(--base-background);
   border: 2px solid var(--base-accent);
   outline: none;
 
-  transition-property: background-color, border-color, color;
+  /* crazy hack for a hover effect that won't mess up firefox's <select> bg */
+  box-shadow: 0 0 0 100vw transparent inset;
+
+  transition-property: box-shadow, border-color, color;
   transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
   transition-duration: 0.1s;
 }
@@ -159,7 +169,7 @@ textarea:not(.raw):not(:read-only):hover,
 textarea:not(.raw):not(:read-only):focus,
 select:not(.raw):not(:disabled):hover,
 select:not(.raw):not(:disabled):focus {
-  background-color: var(--base-surface-off);
+  box-shadow: 0 0 0 100vw var(--base-surface-off) inset;
 }
 
 input:not(.raw):not([data-preserve-contrast]):read-only,
@@ -340,23 +350,27 @@ form.with-layout label > div {
 }
 
 *[data-hover-palette="red"]:hover {
-  --base-accent: #c22648;
+  --base-accent: var(--tint-red);
 }
 
 *[data-hover-palette="orange"]:hover {
-  --base-accent: #bd5326;
+  --base-accent: var(--tint-orange);
 }
 
 *[data-hover-palette="yellow"]:hover {
-  --base-accent: #9d6b00;
+  --base-accent: var(--tint-yellow);
 }
 
 *[data-hover-palette="green"]:hover {
-  --base-accent: #36835f;
+  --base-accent: var(--tint-green);
 }
 
 *[data-hover-palette="blue"]:hover {
-  --base-accent: #296fbf;
+  --base-accent: var(--tint-blue);
+}
+
+*[data-hover-palette="purple"]:hover {
+  --base-accent: var(--tint-purple);
 }
 
 .links {

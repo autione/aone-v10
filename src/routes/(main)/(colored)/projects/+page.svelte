@@ -37,7 +37,7 @@
           {const category = projectMeta.category[project.category]}
 
           {#if project.featured}
-            <span>
+            <span title="Featured">
               <Star size={16} />
             </span>
           {/if}
@@ -46,15 +46,16 @@
             {project.timeframe[0]}{#if project.timeframe[0] !== project.timeframe[1]}-{project.timeframe[0] !== project.timeframe[1] && project.timeframe[1] === true ? "now" : project.timeframe[1]}{/if}
           </span>
 
-          <span>
-            {const MemberIcon = project.contributors.length > 1 ? UsersRound : UserRound}
+          {const hasContributors = project.contributors.length > 1}
+          <span title={`${hasContributors ? "Group" : "Solo"} ${category.name.endsWith("s") ? category.name.substring(0, category.name.length - 1) : category.name} Project`}>
+            {const MemberIcon = hasContributors ? UsersRound : UserRound}
             <MemberIcon size={16} />
 
             {const CategoryIcon = category.icon}
             <CategoryIcon size={16} />
           </span>
 
-          <span style={`color: ${status.color};`}>
+          <span title={`${status.label}: ${status.description}`} style={`color: ${status.color};`}>
             {const IconOf = status.icon}
             <IconOf size={16} />
           </span>
@@ -73,8 +74,7 @@
 
   <style>
     :root {
-      --base-accent: #bd5326;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-orange);
     }
   </style>
 

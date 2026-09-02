@@ -16,8 +16,7 @@
 <main class="base-page extended" style="align-items: center;">
   <style>
     :root {
-      --base-accent: #36835f;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-green);
     }
   </style>
 
@@ -154,6 +153,7 @@
     height: 100%;
 
     z-index: -1;
+    scale: 1.01;
   }
 
   .backdrop img {

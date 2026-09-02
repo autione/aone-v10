@@ -2,13 +2,13 @@
   /* eslint-disable svelte/no-navigation-without-resolve */
   import { resolve } from "$app/paths";
   import type { PageProps } from "./$types";
+  import type { Component } from "svelte";
 
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
 
   import {
-    House,
     CircleUserRound,
     PencilRuler,
     MessageSquareText,
@@ -20,7 +20,9 @@
     Ellipsis,
     Play,
     Gamepad2,
-    Info
+    Info,
+    LibraryBig,
+    House
   } from "@lucide/svelte";
 
   const birthdate = 1179802800000;
@@ -64,6 +66,26 @@
 <svelte:head>
   <title>AutiOne</title>
 </svelte:head>
+
+{#snippet widgetSuspense(label: string, Icon: Component)}
+  <section>
+    <span>
+      <b>{label}</b>
+    </span>
+
+    <div class="suspense">
+      <Icon />
+    </div>
+  </section>
+{/snippet}
+
+{#snippet widgetLoading()}
+  {@render widgetSuspense("Loading...", Ellipsis)}
+{/snippet}
+
+{#snippet widgetError()}
+  {@render widgetSuspense("Failed to load", Ban)}
+{/snippet}
 
 <main class="base-page">
   <Header></Header>
@@ -115,9 +137,9 @@
       <span>want to message me, or tag me in silly online posts? get started here</span>
     </a>
 
-    <a data-hover-palette="green" class="force-light raw" href={resolve("/archives")}>
+    <a data-hover-palette="green" class="force-light raw" href={resolve("/articles")}>
       <FolderOpen />
-      <b>archives</b>
+      <b>articles</b>
       <span>blog-like dump for content that doesn't belong anywhere else</span>
     </a>
 
@@ -126,6 +148,12 @@
       <b>fellows</b>
       <span>check out some wonderful people that surprisingly tolerate me</span>
     </a>
+
+    <!-- <a data-hover-palette="purple" class="force-light raw" href={resolve("/library")}>
+      <LibraryBig />
+      <b>library</b>
+      <span>or perhaps the wonderful works that exceptionally interests me</span>
+    </a> -->
   </section>
 
   <section class="widgets">
@@ -154,10 +182,10 @@
         </header>
 
         {#await data.lastfm}
-          <span><Ellipsis /></span>
+          {@render widgetLoading()}
         {:then track}
           {#if track.error}
-            <span><Ban /></span>
+            {@render widgetError()}
           {:else}
             <section>
               <span>
@@ -169,7 +197,7 @@
             </section>
           {/if}
         {:catch}
-          <span><Ban /></span>
+          {@render widgetError()}
         {/await}
       </main>
 
@@ -198,7 +226,7 @@
         </header>
 
         {#await data.discord}
-          <span><Ellipsis /></span>
+          {@render widgetLoading()}
         {:then activity}
           <section>
             <span>
@@ -210,7 +238,7 @@
             </span>
 
             {#if activity.status === "offline"}
-              <div class="offline">
+              <div class="suspense">
                 <GlobeOff />
               </div>
             {:else}
@@ -218,7 +246,7 @@
             {/if}
           </section>
         {:catch}
-          <span><Ban /></span>
+          {@render widgetError()}
         {/await}
       </main>
 
@@ -238,7 +266,7 @@
         </header>
 
         {#await data.steam}
-          <span><Ellipsis /></span>
+          {@render widgetLoading()}
         {:then summary}
           <section>
             <span>
@@ -254,7 +282,7 @@
             <img src={summary.avatar} alt="Profile Avatar" />
           </section>
         {:catch}
-          <span><Ban /></span>
+          {@render widgetError()}
         {/await}
       </main>
 
@@ -283,7 +311,7 @@
         </header>
 
         {#await data.roblox}
-          <span><Ellipsis /></span>
+          {@render widgetLoading()}
         {:then presence}
           <section>
             <span>
@@ -299,7 +327,7 @@
             {/if}
           </section>
         {:catch}
-          <span><Ban /></span>
+          {@render widgetError()}
         {/await}
       </main>
 
@@ -392,7 +420,7 @@
     height: 3.5rem;
   }
 
-  .widget > main section > .offline {
+  .widget > main section > .suspense {
     width: 3.5rem;
     height: 3.5rem;
 

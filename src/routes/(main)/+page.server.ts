@@ -174,12 +174,10 @@ async function getRoblox() {
 }
 
 export const load: PageServerLoad = async () => {
-  await new Promise((r) => setTimeout(r, 1000));
-
   return {
-    lastfm: await getLastFm(),
-    discord: await getDiscord(),
-    steam: await getSteam(),
-    roblox: await getRoblox()
+    lastfm: getLastFm(),
+    discord: getDiscord(),
+    steam: getSteam(),
+    roblox: getRoblox()
   };
 };

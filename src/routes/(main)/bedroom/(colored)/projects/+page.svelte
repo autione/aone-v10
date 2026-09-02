@@ -29,7 +29,7 @@
 
   <style>
     :root {
-      --base-accent: #bd5326;
+      --base-accent: var(--tint-orange);
       --base-foreground: var(--base-accent);
     }
   </style>

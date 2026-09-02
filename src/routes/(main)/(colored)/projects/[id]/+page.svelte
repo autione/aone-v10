@@ -14,8 +14,7 @@
 <main class="base-page extended" style="align-items: center;">
   <style>
     :root {
-      --base-accent: #bd5326;
-      --base-foreground: var(--base-accent);
+      --base-accent: var(--tint-orange);
     }
   </style>
 
