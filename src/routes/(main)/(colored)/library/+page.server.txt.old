@@ -1,0 +1,94 @@
+import { env } from "$env/dynamic/private";
+import type { PageServerLoad } from "./$types";
+
+interface LastFmAPITopTrack {
+  url: string;
+  mbid?: string;
+  streamable: unknown;
+
+  name: string;
+  artist: { url: string; mbid: string; name: string };
+
+  image: { size: "small" | "medium" | "large" | "extralarge"; "#text": string }[];
+  duration: string;
+  "@attr"?: { rank?: string };
+}
+
+type LastFmResponseA =
+  | { error: string }
+  | {
+      toptracks: {
+        track: LastFmAPITopTrack[];
+      };
+    };
+
+interface LastFmAPITrackInfo {
+  url: string;
+  mbid?: string;
+  streamable: unknown;
+
+  name: string;
+  artist: { name: string; url: string };
+  album: {
+    artist: string;
+    title: string;
+    url: string;
+    image: { size: "small" | "medium" | "large" | "extralarge"; "#text": string }[];
+  };
+
+  listeners: string;
+  playcount: string;
+  duration: string;
+
+  toptags: { tag: string[] };
+}
+
+type LastFmResponseB =
+  | { error: string }
+  | {
+      track: LastFmAPITrackInfo;
+    };
+
+async function getCoverFor(track: LastFmAPITopTrack) {
+  const defaultOf = track.image.find((i) => i.size === "large") || track.image.at(-1);
+  const extra = track.mbid ? `&mbid=${track.mbid}` : `&artist=${track.artist.name}&name=${track.name}&autocorrect=1`;
+
+  try {
+    const res = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=${env.LASTFM_API_KEY}&format=json${extra}`);
+    const data: LastFmResponseB = await res.json();
+    if ("error" in data) return defaultOf?.["#text"];
+
+    const imageOf = data.track.album.image.find((i) => i.size === "large") || data.track.album.image.at(-1);
+    return imageOf?.["#text"];
+  } catch (_) {
+    return defaultOf?.["#text"];
+  }
+}
+
+async function getTopTracks() {
+  const res = await fetch(
+    `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=AutiOne&api_key=${env.LASTFM_API_KEY}&format=json&limit=6&period=7day`
+  );
+  const data: LastFmResponseA = await res.json();
+  if ("error" in data) return { error: true };
+
+  const tracks = [];
+  for (const track of data.toptracks.track) {
+    tracks.push({
+      url: track.url,
+      mbid: track.mbid || "",
+
+      title: track.name,
+      artist: track.artist.name,
+      cover: (await getCoverFor(track)) || ""
+    });
+  }
+
+  return tracks;
+}
+
+export const load: PageServerLoad = async () => {
+  return {
+    topTracks: getTopTracks()
+  };
+};

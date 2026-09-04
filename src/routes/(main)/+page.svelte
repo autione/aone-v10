@@ -21,8 +21,7 @@
     Play,
     Gamepad2,
     Info,
-    LibraryBig,
-    House
+    LibraryBig
   } from "@lucide/svelte";
 
   const birthdate = 1179802800000;
@@ -113,12 +112,6 @@
   </Box>
 
   <section class="links">
-    <a class="raw" href={resolve("/")}>
-      <House />
-      <b>home</b>
-      <span>you are here right now. start exploring other places instead!</span>
-    </a>
-
     <a data-hover-palette="red" class="force-light raw" href={resolve("/myself")}>
       <CircleUserRound />
       <b>myself</b>
@@ -149,11 +142,11 @@
       <span>check out some wonderful people that surprisingly tolerate me</span>
     </a>
 
-    <!-- <a data-hover-palette="purple" class="force-light raw" href={resolve("/library")}>
+    <a data-hover-palette="purple" class="force-light raw" href={resolve("/library")}>
       <LibraryBig />
       <b>library</b>
       <span>or perhaps the wonderful works that exceptionally interests me</span>
-    </a> -->
+    </a>
   </section>
 
   <section class="widgets">

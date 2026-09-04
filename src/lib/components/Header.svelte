@@ -43,8 +43,8 @@
           { label: "projects", path: resolve("/projects") },
           { label: "socials", path: resolve("/socials") },
           { label: "articles", path: resolve("/articles") },
-          { label: "fellows", path: resolve("/fellows") }
-          // { label: "library", path: resolve("/library") }
+          { label: "fellows", path: resolve("/fellows") },
+          { label: "library", path: resolve("/library") }
         ];
 </script>
 
