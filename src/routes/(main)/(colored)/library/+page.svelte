@@ -18,7 +18,7 @@
 </svelte:head>
 
 {#snippet albumDisplay(src: string, href: string)}
-  <a href={href as any} class="raw album">
+  <a href={href as any} target="_blank" class="raw album">
     <img {src} alt="Album Cover" />
     <div class="disc" aria-hidden="true">
       <div></div>
