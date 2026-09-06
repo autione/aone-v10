@@ -6,12 +6,9 @@ import { db } from "$lib/server/db";
 import { and, eq } from "drizzle-orm";
 
 export const load: PageServerLoad = async (event) => {
-  const category = (event.url.searchParams.get("c") || "all") as "all" | "featured" | string;
+  const category = (event.url.searchParams.get("c") || "all") as "all" | string;
 
-  const filter = and(
-    category !== "all" ? (category === "featured" ? eq(table.project.featured, true) : eq(table.project.category, category as any)) : undefined,
-    eq(table.project.visible, true)
-  );
+  const filter = and(category !== "all" ? eq(table.project.category, category as any) : undefined, eq(table.project.visible, true));
 
   const projects = await db.query.project.findMany({
     columns: {

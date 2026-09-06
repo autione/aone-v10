@@ -6,7 +6,7 @@
   import Button from "$lib/components/Button.svelte";
   import Box from "$lib/components/Box.svelte";
 
-  import { CalendarRange, Link2, Star, StarOff } from "@lucide/svelte";
+  import { CalendarRange, CircleDollarSign, CircleOff, Link2, Star, StarOff } from "@lucide/svelte";
   import { fade, slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import { resolve } from "$app/paths";
@@ -76,8 +76,16 @@
       <div style="grid-area: c;">
         <b>Featured</b>
         <span>
-          {#if project!.featured}<Star />{:else}<StarOff />{/if}
-          {project!.featured ? "Yes" : "No"}
+          {#if project!.flags.includes("featured")}<Star />{:else}<StarOff />{/if}
+          {project!.flags.includes("featured") ? "Yes" : "No"}
+        </span>
+      </div>
+
+      <div style="grid-area: d;">
+        <b>Commercial</b>
+        <span>
+          {#if project!.flags.includes("commercial")}<CircleDollarSign />{:else}<CircleOff />{/if}
+          {project!.flags.includes("commercial") ? "Yes" : "No"}
         </span>
       </div>
     </section>
@@ -143,7 +151,6 @@
 
         {#if project!.contributors.length > 0}
           {#each project!.contributors as contributor, i (i)}
-            <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
             <span class="contributor">
               <p>{contributor.name}</p>
               <small>{contributor.role}</small>
@@ -262,10 +269,10 @@
 
   .project-info .details {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-      "a a"
-      "b c";
+      "a a a"
+      "b c d";
 
     gap: 0.5rem;
     width: 100%;

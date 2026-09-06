@@ -1,21 +1,18 @@
 <script lang="ts">
   import type { LayoutServerData } from "../../../$types";
-  import type { ActionData, PageServerData } from "./$types";
+  import type { PageServerData } from "./$types";
   import { projectMeta } from "$lib/consts";
 
-  import PostMarkdown from "$lib/components/PostMarkdown.svelte";
   import Header from "$lib/components/Header.svelte";
   import Button from "$lib/components/Button.svelte";
   import Box from "$lib/components/Box.svelte";
 
-  import { ArrowRight, CalendarRange, Eye, FileBox, InfinityIcon, Link2, Loader, Pencil, Plus, Save, Star, StarOff, Trash2, X } from "@lucide/svelte";
+  import { ArrowRight, Eye, FileBox, InfinityIcon, Loader, Pencil, Plus, Save, Trash2, X } from "@lucide/svelte";
   import { enhance } from "$app/forms";
-  import { fade } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
   import Project from "$lib/views/Project.svelte";
 
   const thisYear = new Date().getFullYear();
-  let { form, data }: { form: ActionData; data: LayoutServerData & PageServerData } = $props();
+  let { data }: { data: LayoutServerData & PageServerData } = $props();
 
   let title = $derived(data.project?.title || "");
   let tagline = $derived(data.project?.tagline || "");
@@ -25,7 +22,7 @@
 
   let category = $derived(data.project?.category || "other");
   let status = $derived(data.project?.status || "deprecated");
-  let featured = $derived(data.project?.featured || false);
+  let flags = $derived(data.project?.flags || []);
   let visible = $derived(data.project?.visible || false);
 
   let contributors = $derived(data.project?.contributors || []);
@@ -38,6 +35,11 @@
   let downscrolled = $state(false);
   let preview = $state(false);
   let busy = $state(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type ProjectFlag = any; // forgive me </3
+
+  const toggleFlag = (flag: ProjectFlag) => (flags = flags.includes(flag) ? flags.filter((f) => f !== flag) : [...flags, flag]);
 </script>
 
 <svelte:head>
@@ -93,8 +95,8 @@
         formData.append("timeframe", JSON.stringify(timeframe));
         formData.append("gallery", JSON.stringify(gallery));
         formData.append("links", JSON.stringify(links));
+        formData.append("flags", JSON.stringify(flags));
 
-        formData.append("featured", String(featured));
         formData.append("visible", String(visible));
 
         busy = true;
@@ -148,7 +150,7 @@
         gallery,
         links,
 
-        featured,
+        flags,
         visible
       }}
       inEditor
@@ -211,33 +213,34 @@
           <label style="grid-area: d;" for="">
             <span>visibility</span>
             <div>
+              <Button onclick={() => (visible = true)} variant={visible ? "primary" : "tertiary"} size="small" style="width: 100%; justify-content: center;">
+                visible
+              </Button>
+              <Button onclick={() => (visible = false)} variant={!visible ? "primary" : "tertiary"} size="small" style="width: 100%; justify-content: center;">
+                hidden
+              </Button>
+            </div>
+          </label>
+
+          <label style="grid-area: e;" for="">
+            <span>flags</span>
+            <div>
               <Button
-                onclick={() => {
-                  featured = true;
-                  visible = true;
-                }}
-                variant={featured && visible ? "primary" : "tertiary"}
+                onclick={() => toggleFlag("featured")}
+                variant={flags.includes("featured") ? "primary" : "tertiary"}
                 size="small"
-                style="width: 100%; justify-content: center;">featured</Button
+                style="width: 100%; justify-content: center;"
               >
+                featured
+              </Button>
               <Button
-                onclick={() => {
-                  featured = false;
-                  visible = true;
-                }}
-                variant={!featured && visible ? "primary" : "tertiary"}
+                onclick={() => toggleFlag("commercial")}
+                variant={flags.includes("commercial") ? "primary" : "tertiary"}
                 size="small"
-                style="width: 100%; justify-content: center;">visible</Button
+                style="width: 100%; justify-content: center;"
               >
-              <Button
-                onclick={() => {
-                  featured = false;
-                  visible = false;
-                }}
-                variant={!visible ? "primary" : "tertiary"}
-                size="small"
-                style="width: 100%; justify-content: center;">hidden</Button
-              >
+                commercial
+              </Button>
             </div>
           </label>
         </section>
@@ -430,10 +433,10 @@
 
   .editor-info .details {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
-      "a b c"
-      "d d d";
+      "a a b b c c"
+      "d d d e e e";
     gap: 1rem;
   }
 

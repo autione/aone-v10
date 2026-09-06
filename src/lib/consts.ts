@@ -1,4 +1,4 @@
-import { CircleCheck, CircleEllipsis, CircleEqual, CirclePause, CircleX, Globe, Joystick, LayoutGrid, Network, PackageOpen } from "@lucide/svelte";
+import { CircleCheck, CircleDot, CircleEllipsis, CircleEqual, CirclePause, CircleX, Globe, Joystick, LayoutGrid, Network, PackageOpen } from "@lucide/svelte";
 import type { Component } from "svelte";
 
 export const version = "10.2";
@@ -24,10 +24,11 @@ interface ProjectCategoryInfo {
 export const projectMeta: ProjectMetaInfo = {
   status: {
     active: { label: "Active", color: "#029c61", icon: CircleCheck, description: "Released project with active ongoing development" },
-    supported: { label: "Supported", color: "#5e30b4", icon: CircleEqual, description: "Released project with maintenance support only" },
+    supported: { label: "Supported", color: "#6b48ac", icon: CircleEqual, description: "Released project with maintenance support only" },
+    delivered: { label: "Delivered", color: "#44989e", icon: CircleDot, description: "Project with no further development needed from me" },
     developing: { label: "In Development", color: "#1a7fc3", icon: CircleEllipsis, description: "Unreleased project still under development" },
     paused: { label: "Paused", color: "#c06d00", icon: CirclePause, description: "Unreleased project currently not under development" },
-    deprecated: { label: "Deprecated", color: "#cf1010", icon: CircleX, description: "Abandoned project no longer in development" }
+    deprecated: { label: "Deprecated", color: "#c42020", icon: CircleX, description: "Abandoned project no longer in development" }
   },
 
   category: {

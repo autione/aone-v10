@@ -57,14 +57,15 @@ export const inviteKey = pgTable("invites", {
 
 type ProjectLink = { label: string; url: string };
 type ProjectContributor = { name: string; role: string };
+type ProjectFlag = "featured" | "commercial";
 
-export const projectStatus = pgEnum("project_status", ["active", "supported", "developing", "paused", "deprecated"]);
+export const projectStatus = pgEnum("project_status", ["active", "supported", "delivered", "developing", "paused", "deprecated"]);
 export const projectCategory = pgEnum("project_category", ["games", "websites", "apps", "services", "other"]);
 
 export const project = pgTable("projects", {
   id: text("id").primaryKey(),
   visible: boolean("visible").default(false).notNull(),
-  featured: boolean("featured").default(false).notNull(),
+  flags: json("flags").$type<ProjectFlag[]>().notNull().default([]),
 
   title: text("title").default("").notNull(),
   tagline: text("tagline").default("").notNull(),

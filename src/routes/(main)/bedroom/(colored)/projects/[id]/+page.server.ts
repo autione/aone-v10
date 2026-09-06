@@ -34,11 +34,11 @@ export const actions: Actions = {
     const timeframe = formData.get("timeframe") as string;
     const gallery = formData.get("gallery") as string;
     const links = formData.get("links") as string;
+    const flags = formData.get("flags") as string;
 
     const category = formData.get("category") as string;
     const status = formData.get("status") as string;
 
-    const featured = formData.get("featured") as string;
     const visible = formData.get("visible") as string;
 
     if (typeof title !== "string") return fail(400, { error: "InvalidTitle" });
@@ -49,11 +49,11 @@ export const actions: Actions = {
     if (typeof timeframe !== "string") return fail(400, { error: "InvalidTimeframe" });
     if (typeof gallery !== "string") return fail(400, { error: "InvalidGallery" });
     if (typeof links !== "string") return fail(400, { error: "InvalidLinks" });
+    if (typeof flags !== "string") return fail(400, { error: "InvalidFlags" });
 
     if (typeof category !== "string") return fail(400, { error: "InvalidCategory" });
     if (typeof status !== "string") return fail(400, { error: "InvalidStatus" });
 
-    if (typeof featured !== "string" || (featured !== "true" && featured !== "false")) return fail(400, { error: "InvalidFeatured" });
     if (typeof visible !== "string" || (visible !== "true" && visible !== "false")) return fail(400, { error: "InvalidVisible" });
 
     return {
@@ -68,11 +68,11 @@ export const actions: Actions = {
           timeframe: JSON.parse(timeframe),
           gallery: JSON.parse(gallery),
           links: JSON.parse(links),
+          flags: JSON.parse(flags),
 
           category: category as any,
           status: status as any,
 
-          featured: featured == "true",
           visible: visible == "true"
         })
         .where(eq(table.project.id, event.params.id))

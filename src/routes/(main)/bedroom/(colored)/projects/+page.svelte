@@ -7,7 +7,7 @@
   import Button from "$lib/components/Button.svelte";
   import Box from "$lib/components/Box.svelte";
 
-  import { CalendarRange, EyeOff, FileBox, Image, Link2, Plus, Search, Star, UsersRound } from "@lucide/svelte";
+  import { CalendarRange, CircleDollarSign, EyeOff, FileBox, Image, Link2, Plus, Search, Star, UsersRound } from "@lucide/svelte";
   
   import { enhance } from "$app/forms";
   import { resolve } from "$app/paths";
@@ -148,7 +148,8 @@
             {/if}
 
             {#if !project.visible} <EyeOff size={18} /> {/if}
-            {#if project.featured} <Star size={18} /> {/if}
+            {#if project.flags.includes("commercial")} <CircleDollarSign size={18} /> {/if}
+            {#if project.flags.includes("featured")} <Star size={18} /> {/if}
           </div>
         </main>
       </a>

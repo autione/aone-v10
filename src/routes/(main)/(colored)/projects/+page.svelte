@@ -4,7 +4,7 @@
   import { projectMeta } from "$lib/consts";
   import { resolve } from "$app/paths";
   
-  import { ArrowRight, Star, UserRound, UsersRound } from "@lucide/svelte";
+  import { ArrowRight, CircleDollarSign, Star, UserRound, UsersRound } from "@lucide/svelte";
 
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
@@ -16,8 +16,8 @@
     return projectMeta.category[a].order - projectMeta.category[b].order
   });
 
-  const featured = $derived(data.projects.filter(p => p.featured));
-  const nonFeatured = $derived(data.projects.filter(p => !p.featured));
+  const featured = $derived(data.projects.filter(p => p.flags.includes("featured")));
+  const nonFeatured = $derived(data.projects.filter(p => !p.flags.includes("featured")));
 </script>
 
 <svelte:head>
@@ -36,9 +36,10 @@
           {const status = projectMeta.status[project.status]}
           {const category = projectMeta.category[project.category]}
 
-          {#if project.featured}
-            <span title="Featured">
-              <Star size={16} />
+          {#if project.flags.length > 0}
+            <span>
+              {#if project.flags.includes("featured")} <Star size={16} /> {/if}
+              {#if project.flags.includes("commercial")} <CircleDollarSign size={16} /> {/if}
             </span>
           {/if}
 
