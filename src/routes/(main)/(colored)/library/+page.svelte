@@ -249,7 +249,7 @@
 
   .album > .disc > div {
     background-color: #fff1;
-    backdrop-filter: blur(12px) saturate(3) brightness(2);
+    backdrop-filter: blur(3px) saturate(3) brightness(2);
     z-index: 2;
   }
 

@@ -474,5 +474,10 @@
     .gallery {
       grid-template-columns: 1fr;
     }
+
+    .project-info .details {
+      display: flex;
+      flex-direction: column;
+    }
   }
 </style>

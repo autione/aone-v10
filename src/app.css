@@ -598,7 +598,7 @@ form.with-layout label > div {
   padding: 0;
 }
 
-.markdown-content hr {
+hr {
   border: none;
   border-top: 2px dashed rgb(from var(--base-accent) r g b / 0.4);
   margin: 1rem 0;

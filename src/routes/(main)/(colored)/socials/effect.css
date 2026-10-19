@@ -3,6 +3,10 @@
   transition-duration: 0.1s;
 }
 
+*:not([data-effect-palette]) {
+  --tint: var(--base-accent);
+}
+
 *[data-effect-palette="discord"] {
   --tint: #5865f2;
 }
@@ -81,6 +85,14 @@
 
 :root:has(*[data-effect-palette="spotify"]:hover) {
   --base-accent: #188a40 !important;
+}
+
+*[data-effect-palette="applemusic"] {
+  --tint: #fa243c;
+}
+
+:root:has(*[data-effect-palette="applemusic"]:hover) {
+  --base-accent: #fa243c !important;
 }
 
 *[data-effect-palette="kofi"] {

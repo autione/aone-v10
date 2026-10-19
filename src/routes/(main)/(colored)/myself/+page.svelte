@@ -36,7 +36,7 @@
   <Box label="introduction">
     <p>
       As you may already know, my name is Auti. I'm a {age}-year-old brazilian <a href="https://en.wikipedia.org/wiki/Autism" target="_blank">autistic</a>
-      <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> from São Paulo. I use they/it pronouns.
+      <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> person from São Paulo. I use they/it pronouns in English.
     </p>
     <br />
     <p>
@@ -72,7 +72,7 @@
         <i>VB.NET was actually part of my repertoire for a good while. Microsoft really had me!</i>
       </small>
     </p>
-    <br />
+    <hr />
     <p>Over time, I got to learn different coding languages, and nowadays I'm mostly developing in web platforms and game engines.</p>
     <br />
     <p>
@@ -145,7 +145,7 @@
             <MaskedIcon i="/brands/software/robloxstudio.svg" size={24} color="#00a2ff" />
             <p>
               <span>Roblox Studio</span>
-              <small>for some monetized games</small>
+              <small>for some multiplayer games</small>
             </p>
           </span>
 

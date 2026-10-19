@@ -33,8 +33,8 @@
     </Box>
   </section>
 
-  <Box label="immediate contact">
-    <p>Reach me through these platforms if you want to get in touch and get a response as soon as possible. Please do allow for time to respond.</p>
+  <Box label="contact me">
+    <p>Reach me through these platforms if you want to get in touch and get a response as soon as possible. Please do allow some time for me to respond.</p>
 
     <div class="socials">
       <a data-effect-palette="discord" class="raw" href="discord://-/users/226484318959173632">
@@ -45,14 +45,20 @@
         <MaskedIcon i={asset("/brands/github.svg")} /> GitHub
       </a>
 
-      <span>
-        <Mail /> E-mail available on GitHub
-      </span>
+      <a class="raw" href="mailto:contact@auti.one" target="_blank">
+        <Mail /> E-mail
+      </a>
     </div>
+
+    <p style="margin-top: 0.375rem;">
+      <small style="opacity: 0.5;">
+        <i>I may be unavailable at times and messages may get ignored if they look fishy, so be nice!</i>
+      </small>
+    </p>
   </Box>
 
   <Box label="other places">
-    <p>These are other places you can find me, but you probably shouldn't use them to actually reach out to me.</p>
+    <p>There are some other platforms you can find me on, but do note I don't use them for messaging.</p>
 
     <div class="socials">
       <a data-effect-palette="reddit" class="raw" href="https://reddit.com/u/FiveManiaFifty" target="_blank">
@@ -60,7 +66,7 @@
       </a>
 
       <a data-effect-palette="bluesky" class="raw" href="https://bsky.app/profile/auti.one" target="_blank">
-        <MaskedIcon i={asset("/brands/bluesky.svg")} /> BlueSky
+        <MaskedIcon i={asset("/brands/bluesky.svg")} /> Bluesky
       </a>
 
       <a data-effect-palette="mastodon" class="raw" href="https://mastodon.social/@autione" target="_blank">
@@ -83,6 +89,10 @@
         <MaskedIcon i={asset("/brands/twitch.svg")} /> Twitch
       </a>
 
+      <a data-effect-palette="applemusic" class="raw" href="https://music.apple.com/profile/autione" target="_blank">
+        <MaskedIcon i={asset("/brands/applemusic.svg")} /> Apple Music
+      </a>
+
       <a data-effect-palette="spotify" class="raw" href="https://open.spotify.com/user/12174654642" target="_blank">
         <MaskedIcon i={asset("/brands/spotify.svg")} /> Spotify
       </a>
@@ -94,14 +104,14 @@
   </Box>
 
   <Box label="fun & games">
-    <p>At last, all the crazy gaming platforms I'm a part of, if you ever wanna snipe my games or see how I play.</p>
+    <p>At last, all the crazy gaming platforms I'm a part of, if you ever wanna snipe my matches or see what kinds of games I play.</p>
 
     <div class="socials">
       <a data-effect-palette="steam" class="raw" href="https://steamcommunity.com/id/AutiOne/" target="_blank">
         <MaskedIcon i={asset("/brands/steam.svg")} /> Steam
       </a>
 
-      <a data-effect-palette="xbox" class="raw" href="https://www.xbox.com/play/user/AutiOne8439" target="_blank">
+      <a data-effect-palette="xbox" class="raw" href="https://play.xbox.com/user/Awtysmix" target="_blank">
         <MaskedIcon i={asset("/brands/xbox.svg")} /> Xbox
       </a>
 
