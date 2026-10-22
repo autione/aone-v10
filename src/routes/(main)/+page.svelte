@@ -64,6 +64,15 @@
 
 <svelte:head>
   <title>AutiOne</title>
+  <meta name="theme-color" content="#000000" />
+
+  <meta property="og:title" content="Home" />
+  <meta property="og:description" content="Delve into Auti's personal website, filled with info dumps and nerdy thingimajigs!" />
+  <meta property="og:image" content="https://auti.one/embed/banner-home.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 {#snippet widgetSuspense(label: string, Icon: Component)}
