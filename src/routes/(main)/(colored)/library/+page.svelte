@@ -262,11 +262,11 @@
   }
 
   .games > a {
-    background-image: linear-gradient(to bottom, #0004, #000a), var(--src);
+    background-image: linear-gradient(to bottom, #0003, #000c), var(--src);
     background-color: #000;
     color: #fff;
 
-    background-size: cover;
+    background-size: 125%;
     background-position: center;
 
     border: 2px solid var(--base-accent);
@@ -274,37 +274,54 @@
 
     width: 100%;
     height: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 10 / 12;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.375rem;
 
-    padding: 0.875rem;
+    padding: 1rem;
 
     position: relative;
+    overflow: hidden;
+
+    transition-property: background-size;
+  }
+
+  .games > a,
+  .games > a * {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-duration: 0.25s;
   }
 
   .games > a > img {
-    width: 2.25rem;
-    height: 2.25rem;
+    height: 60px;
+    max-width: 100%;
+    object-fit: contain;
+
+    transition-property: height;
   }
 
   .games > a > b {
     font-size: 1.25rem;
+    line-height: 1.75cap;
+    text-align: center;
+
+    transition-property: opacity, font-size, line-height;
   }
 
   .games > a > label {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     gap: 0.25rem;
 
     position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
+    right: 0;
+    top: 0;
 
     font-size: 0.75rem;
     font-weight: 500;
@@ -313,22 +330,33 @@
     padding: 0.25rem;
     padding-left: 0.5rem;
 
-    background-color: var(--base-background);
-    color: var(--base-foreground);
+    background-color: var(--base-accent);
+    color: #fff;
 
-    transition:
-      opacity 0.1s,
-      right 0.1s,
-      top 0.1s;
+    transition-property: opacity, top, right;
+  }
+
+  .games > a:not(:hover) {
+    background-size: 100%;
+  }
+
+  .games > a:not(:hover) > img {
+    height: 72px;
   }
 
   .games > a:not(:hover) > label {
     opacity: 0;
-    right: 0.25rem;
-    top: 0.25rem;
+    right: -1rem;
+    top: -1rem;
   }
 
-  @media screen and (max-width: 768px) {
+  .games > a:not(:hover) > b {
+    font-size: 1.125rem;
+    line-height: 0.25cap;
+    opacity: 0;
+  }
+
+  @media screen and (max-width: 640px) {
     .games {
       grid-template-columns: 1fr 1fr;
     }
@@ -338,10 +366,6 @@
     .vinyls {
       grid-template-columns: 1fr 1fr;
       gap: 1rem 3rem;
-    }
-
-    .games {
-      grid-template-columns: 1fr;
     }
   }
 </style>
