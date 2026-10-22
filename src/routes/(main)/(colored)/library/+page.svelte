@@ -21,9 +21,7 @@
   <a href={href as any} target="_blank" class="raw album">
     <img {src} alt="Album Cover" />
     <div class="disc" aria-hidden="true">
-      <div>
-        <img {src} aria-hidden="true" alt="" />
-      </div>
+      <div style={`background-image: url(${src})`}></div>
     </div>
   </a>
 {/snippet}
@@ -191,6 +189,14 @@
     translate: -5px 0;
   }
 
+  .album:hover > .disc {
+    animation-name: spin;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+
   .album > .disc {
     width: 100%;
     height: 100%;
@@ -210,39 +216,27 @@
       conic-gradient(from 45deg at 50% 50%, #fff0 -144deg, #fff0 144deg, #fff1 162deg, #fff2 180deg, #fff1 198deg, #fff0 216deg, #fff0 504deg), #222127;
 
     position: relative;
-
-    animation-name: spin;
-    animation-duration: 15s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
   }
 
-  .album > .disc > div,
-  .album > .disc > div img {
+  .album > .disc > div {
     position: absolute;
     left: 50%;
     top: 50%;
 
     translate: -50% -50%;
-  }
 
-  .album > .disc > div {
     width: 33%;
     height: 33%;
 
     border-radius: 100vw;
     overflow: hidden;
 
-    border: 1px solid #0004;
-  }
+    border: 1px solid #0002;
 
-  .album > .disc > div img {
+    background-position: center;
+    background-size: 5000%;
+
     filter: saturate(2) brightness(1.5) contrast(0.75);
-    scale: 50;
-
-    width: 100%;
-    height: 100%;
   }
 
   .album > .disc > div::after {
