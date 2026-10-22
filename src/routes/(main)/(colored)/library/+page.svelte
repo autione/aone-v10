@@ -99,8 +99,8 @@
         <a class="raw" style={`--src: url(/games/banners/${game.id}.png)`} href={game.link.path as any} target="_blank">
           <label>{game.link.label} <ArrowUpRight size={16} /></label>
 
-          <img src={`/games/icons/${game.id}.png`} alt="" />
-          <b>{game.title}</b>
+          <img src={`/games/icons/${game.id}.png`} alt={game.title} title={game.title} />
+          <i class="detail">"{game.quote}"</i>
         </a>
       {/each}
     </section>
@@ -268,6 +268,7 @@
 
     background-size: 125%;
     background-position: center;
+    background-repeat: repeat-y;
 
     border: 2px solid var(--base-accent);
     text-decoration: none;
@@ -304,8 +305,8 @@
     transition-property: height;
   }
 
-  .games > a > b {
-    font-size: 1.25rem;
+  .games > a > .detail {
+    font-size: 1rem;
     line-height: 1.75cap;
     text-align: center;
 
@@ -336,24 +337,25 @@
     transition-property: opacity, top, right;
   }
 
-  .games > a:not(:hover) {
-    background-size: 100%;
-  }
+  @media screen and (min-width: 640px) {
+    .games > a:not(:hover) {
+      background-size: 100%;
+    }
 
-  .games > a:not(:hover) > img {
-    height: 72px;
-  }
+    .games > a:not(:hover) > img {
+      height: 72px;
+    }
 
-  .games > a:not(:hover) > label {
-    opacity: 0;
-    right: -1rem;
-    top: -1rem;
-  }
+    .games > a:not(:hover) > label {
+      opacity: 0;
+      right: -1rem;
+      top: -1rem;
+    }
 
-  .games > a:not(:hover) > b {
-    font-size: 1.125rem;
-    line-height: 0.25cap;
-    opacity: 0;
+    .games > a:not(:hover) > .detail {
+      line-height: 0.1cap;
+      opacity: 0;
+    }
   }
 
   @media screen and (max-width: 640px) {
@@ -366,6 +368,14 @@
     .vinyls {
       grid-template-columns: 1fr 1fr;
       gap: 1rem 3rem;
+    }
+
+    .games > a > img {
+      height: 56px;
+    }
+
+    .games > a > .detail {
+      font-size: 0.9rem;
     }
   }
 </style>
