@@ -22,6 +22,15 @@
 
 <svelte:head>
   <title>AutiOne / Projects</title>
+  <meta name="theme-color" content="#bd5326" />
+
+  <meta property="og:title" content="Projects" />
+  <meta property="og:description" content="Observe this majestic list of random stuff I've crafted over time." />
+  <meta property="og:image" content="https://auti.one/embed/banner-projects.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 {#snippet projectCard(project: typeof featured["0"])}

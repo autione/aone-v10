@@ -9,6 +9,13 @@
 
 <svelte:head>
   <title>AutiOne / Projects / {data.project!.title}</title>
+  <meta name="theme-color" content="#bd5326" />
+
+  <meta property="og:title" content={data.project!.title} />
+  <meta property="og:description" content={data.project!.description} />
+  <meta property="og:image" content={`https://files.auti.one/project-icons/${data.project!.id}`} />
+  <meta property="og:image:width" content="64" />
+  <meta property="og:image:height" content="64" />
 </svelte:head>
 
 <main class="base-page extended" style="align-items: center;">

@@ -23,6 +23,15 @@
 
 <svelte:head>
   <title>AutiOne / Articles</title>
+  <meta name="theme-color" content="#2e6e50" />
+
+  <meta property="og:title" content="Articles" />
+  <meta property="og:description" content="Blog-like dump for content that doesn't belong anywhere else." />
+  <meta property="og:image" content="https://auti.one/embed/banner-articles.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="base-page">

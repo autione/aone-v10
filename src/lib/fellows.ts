@@ -25,7 +25,7 @@ const fellows: FriendEntry[] = [
     pronouns: "he/him",
     description: "Voice actor & DELTARUNE enjoyer.",
 
-    tags: ["dubbing", "philosophy", `<span style="color: #FF94A1">mai</span><span style="color: #FFD055">oral</span>`],
+    tags: ["dubbing", "philosophy", `<span style="color: #ff88a2">mai</span><span style="color: #f5b922">oral</span>`],
     links: [{ icon: "tiktok", path: "https://tiktok.com/@atlas.oceanico" }],
 
     year: 2025

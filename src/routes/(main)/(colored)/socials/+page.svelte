@@ -11,6 +11,15 @@
 
 <svelte:head>
   <title>AutiOne / Socials</title>
+  <meta name="theme-color" content="#9c6b02" />
+
+  <meta property="og:title" content="Socials" />
+  <meta property="og:description" content="Want to message me, or tag me in silly online posts? Get started here." />
+  <meta property="og:image" content="https://auti.one/embed/banner-socials.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="base-page">
@@ -142,6 +151,10 @@
 
       <a data-effect-palette="bungienet" class="raw" href="https://www.bungie.net/7/en/User/Profile/3/4611686018537150650" target="_blank">
         <MaskedIcon i={asset("/brands/bungienet.svg")} /> Bungie.net
+      </a>
+
+      <a data-effect-palette="github" class="raw" href="https://vrchat.com/home/user/usr_e963a694-4341-451d-b5e1-c8187b4534ca" target="_blank">
+        <MaskedIcon i={asset("/brands/vrchat.svg")} /> VRChat
       </a>
     </div>
   </Box>

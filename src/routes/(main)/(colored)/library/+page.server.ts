@@ -13,6 +13,18 @@ interface LastFmAPITopAlbum {
   "@attr"?: { rank?: string };
 }
 
+interface SteamAPIRecentGame {
+  appid: number;
+  name: string;
+  playtime_2weeks: number;
+  playtime_forever: number;
+  img_icon_url: string;
+  playtime_windows_forever: number;
+  playtime_mac_forever: number;
+  playtime_linux_forever: number;
+  playtime_deck_forever: number;
+}
+
 type LastFmResponse =
   | { error: string }
   | {
@@ -20,6 +32,13 @@ type LastFmResponse =
         album: LastFmAPITopAlbum[];
       };
     };
+
+type SteamResponse = {
+  response: {
+    total_count: number;
+    games: SteamAPIRecentGame[];
+  };
+};
 
 async function getTopAlbums() {
   const res = await fetch(
@@ -42,8 +61,32 @@ async function getTopAlbums() {
   });
 }
 
+async function getRecentGames() {
+  const res = await fetch(
+    `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${env.STEAM_WEBAPI_KEY}&steamid=76561198367757754&count=6`
+  );
+  if (res.status !== 200) return { error: true };
+
+  const data: SteamResponse = await res.json();
+
+  return data.response.games.map((game) => {
+    const imageOf = `https://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_icon_url}.jpg`;
+
+    return {
+      icon: imageOf,
+      appId: game.appid,
+      name: game.name,
+      playtime: {
+        recent: game.playtime_2weeks,
+        total: game.playtime_forever
+      }
+    };
+  });
+}
+
 export const load: PageServerLoad = async () => {
   return {
-    topAlbums: getTopAlbums()
+    topAlbums: getTopAlbums(),
+    recentGames: getRecentGames()
   };
 };

@@ -33,7 +33,7 @@ const games: GameEntry[] = [
   {
     id: "deltarune",
     title: "DELTARUNE",
-    quote: "This made me sob, yell, laugh and everything else in between.",
+    quote: "Toby Fox made me sob, yell, laugh & everything else in between.",
     link: { label: "View website", path: "https://deltarune.com/" }
   },
 
@@ -83,7 +83,7 @@ const games: GameEntry[] = [
     id: "vrchat",
     title: "VRChat",
     quote: "The cover image I put here should be on official marketing material.",
-    link: { label: "View on Steam", path: "https://store.steampowered.com/app/438100" }
+    link: { label: "View website", path: "https://hello.vrchat.com" }
   },
 
   {

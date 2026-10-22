@@ -15,6 +15,15 @@
 
 <svelte:head>
   <title>AutiOne / Fellows</title>
+  <meta name="theme-color" content="#296fbf" />
+
+  <meta property="og:title" content="Fellows" />
+  <meta property="og:description" content="Check out some wonderful people that surprisingly tolerate me." />
+  <meta property="og:image" content="https://auti.one/embed/banner-fellows.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="base-page">
@@ -192,11 +201,11 @@
   }
 
   .friend > .meta .tags > span {
-    background-color: var(--base-accent);
-    color: #fff;
+    background-color: var(--base-surface-mid);
+    color: var(--base-foreground);
 
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
     padding: 0 0.5rem;
 
     display: flex;

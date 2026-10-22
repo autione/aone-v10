@@ -11,6 +11,16 @@
 
 <svelte:head>
   <title>AutiOne / Articles / {data.post?.title}</title>
+  <meta name="theme-color" content="#2e6e50" />
+
+  <meta property="og:title" content={data.post?.title} />
+  <meta property="og:description" content={data.post?.description} />
+  <meta property="og:pubdate" content={data.post?.createdAt.toISOString()} />
+
+  {#if data.post.thumbnail}
+    <meta property="og:image" content={data.post.thumbnail} />
+    <meta name="twitter:card" content="summary_large_image" />
+  {/if}
 </svelte:head>
 
 <main class="base-page extended" style="align-items: center;">

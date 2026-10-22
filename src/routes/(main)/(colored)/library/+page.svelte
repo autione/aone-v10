@@ -15,6 +15,15 @@
 
 <svelte:head>
   <title>AutiOne / Library</title>
+  <meta name="theme-color" content="#6a44b8" />
+
+  <meta property="og:title" content="Library" />
+  <meta property="og:description" content="Perhaps, check out the wonderful work that exceptionally interests me." />
+  <meta property="og:image" content="https://auti.one/embed/banner-library.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 {#snippet albumDisplay(src: string, href: string)}
@@ -58,14 +67,33 @@
     {#await data.topAlbums}
       <Box>Please wait...</Box>
     {:then topAlbums}
-      {#if !("error" in topAlbums)}
-        <Box>
-          These are the albums I've been listening the most this week. It's usually a crazy non-sensical eclectic mix, as my music taste usually is. Feel free
-          to check out my
-          <a href="https://last.fm/user/AutiOne" target="_blank">Last.fm page</a>
-          for more insights on what's trending for me!
-        </Box>
+      <Box>
+        <p>Music makes me feel things, it's so awesome and powerful it feels magical sometimes. So, my silly brain enjoys spending time absorbing noises!</p>
 
+        <br />
+
+        <p>
+          When motivation strikes, I like putting together some playlists for certain vibes. Check them out on my
+          <a href="https://music.apple.com/profile/autione" target="_blank">Apple Music</a>
+          or <a href="https://open.spotify.com/user/12174654642/playlists" target="_blank">Spotify</a> profiles. Otherwise, I just spend time listening to my liked
+          songs or entire albums in a whole go.
+        </p>
+
+        {#if !("error" in topAlbums)}
+          <hr />
+
+          <p>
+            Speaking of which, these are the albums I've been listening the most this week. It's usually a non-sensical eclectic mix, as my music taste tends to
+            be.
+          </p>
+
+          <br />
+
+          <p>Also, feel free to check out my <a href="https://last.fm/user/AutiOne" target="_blank">Last.fm page</a> for more insights on that!</p>
+        {/if}
+      </Box>
+
+      {#if !("error" in topAlbums)}
         <section class="vinyls">
           {#each topAlbums as album, i (i)}
             <div>
@@ -80,7 +108,7 @@
         </section>
       {:else}
         <Box>
-          Oh, something went wrong. You can try refreshing the page or checking them out yourself on my
+          Oh, something went wrong while loading this week's top albums. You can try refreshing the page or checking them out yourself on my
           <a href="https://last.fm/user/AutiOne" target="_blank">Last.fm page</a>.
         </Box>
       {/if}
@@ -89,8 +117,52 @@
 
   <Section label="games">
     <Box>
-      These are some of my most played titles. All of them contain at least some bits of what I usually enjoy in games: storytelling, action, creativity, and
-      most importantly, the ability to play with friends!
+      {#await data.recentGames}
+        <p>Loading stats...</p>
+      {:then games}
+        {#if !("error" in games)}
+          <p>
+            Games are fun, which is why I play lots of them. A lot of the time, I stick to my known favorites, but you never know what your next best thing
+            might be!
+          </p>
+
+          <br />
+
+          <p>So, on the spirit of curiosity, you can explore my last played games on Steam:</p>
+
+          <section class="recent-games">
+            {#each games as game (game.appId)}
+              <a href={`https://store.steampowered.com/app/${game.appId}`} target="_blank" class="raw">
+                <img src={game.icon} alt="" />
+
+                <span>
+                  <b>{game.name}</b>
+                  <small>{(game.playtime.recent / 60).toFixed(1)}h played recently ({(game.playtime.total / 60).toFixed(1)}h total)</small>
+                </span>
+              </a>
+            {/each}
+          </section>
+        {:else}
+          <p>
+            Whoops, pulling game info from Steam didn't work. You can still check them our yourself on my
+            <a href="https://steamcommunity.com/id/AutiOne/" target="_blank">Steam profile</a>.
+          </p>
+        {/if}
+      {/await}
+
+      <hr />
+
+      <p>
+        If you're looking for something more thoughtful than just stats, then see some of my favorite titles not limited to just Steam games, with a small bit
+        of my opinion on each one.
+      </p>
+
+      <br />
+
+      <p>
+        All of them contain at least some bits of what I usually enjoy in games: storytelling, action, creativity, and most importantly, the ability to play
+        with friends!
+      </p>
     </Box>
 
     <section class="games">
@@ -255,6 +327,52 @@
     border-radius: 100vw;
   }
 
+  .recent-games {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  .recent-games > a {
+    text-decoration: none;
+    color: inherit;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0.5rem;
+    background-color: var(--base-surface-off);
+
+    transition:
+      background-color 0.125s,
+      color 0.125s;
+  }
+
+  .recent-games > a:hover {
+    background-color: var(--base-surface-on);
+    color: var(--base-active);
+  }
+
+  .recent-games > a span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recent-games > a img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .recent-games > a span small {
+    font-size: 0.75rem;
+    opacity: 0.75;
+  }
+
   .games {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -361,6 +479,10 @@
   }
 
   @media screen and (max-width: 640px) {
+    .recent-games {
+      grid-template-columns: 1fr;
+    }
+
     .games {
       grid-template-columns: 1fr 1fr;
     }

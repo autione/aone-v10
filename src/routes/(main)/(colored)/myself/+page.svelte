@@ -11,6 +11,15 @@
 
 <svelte:head>
   <title>AutiOne / Myself</title>
+  <meta name="theme-color" content="#c22648" />
+
+  <meta property="og:title" content="Myself" />
+  <meta property="og:description" content="Find out who I am, and maybe surprise yourself in the process!" />
+  <meta property="og:image" content="https://auti.one/embed/banner-myself.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="288" />
+
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="base-page">
