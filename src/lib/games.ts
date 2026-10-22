@@ -12,7 +12,7 @@ const games: GameEntry[] = [
   {
     id: "minecraft",
     title: "Minecraft",
-    quote: "By far, my favorite game. I made many friends, built stuff and learned so much on it!",
+    quote: "By far, my favorite game. It has gotten me many friends, creations and knowledge!",
     link: { label: "View website", path: "https://minecraft.net/" }
   },
 

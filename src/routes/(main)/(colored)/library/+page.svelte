@@ -21,8 +21,9 @@
   <a href={href as any} target="_blank" class="raw album">
     <img {src} alt="Album Cover" />
     <div class="disc" aria-hidden="true">
-      <div></div>
-      <img {src} alt="" />
+      <div>
+        <img {src} aria-hidden="true" alt="" />
+      </div>
     </div>
   </a>
 {/snippet}
@@ -218,17 +219,30 @@
   }
 
   .album > .disc > div,
-  .album > .disc > img {
+  .album > .disc > div img {
     position: absolute;
     left: 50%;
     top: 50%;
 
     translate: -50% -50%;
+  }
 
+  .album > .disc > div {
     width: 33%;
     height: 33%;
 
     border-radius: 100vw;
+    overflow: hidden;
+
+    border: 1px solid #0004;
+  }
+
+  .album > .disc > div img {
+    filter: saturate(2) brightness(1.5) contrast(0.75);
+    scale: 50;
+
+    width: 100%;
+    height: 100%;
   }
 
   .album > .disc > div::after {
@@ -245,12 +259,6 @@
 
     background-color: var(--base-background);
     border-radius: 100vw;
-  }
-
-  .album > .disc > div {
-    background-color: #fff1;
-    backdrop-filter: blur(3px) saturate(3) brightness(2);
-    z-index: 2;
   }
 
   .games {
