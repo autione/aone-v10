@@ -132,7 +132,7 @@
 
           <section class="recent-games">
             {#each games as game (game.appId)}
-              <a href={`https://store.steampowered.com/app/${game.appId}`} target="_blank" class="raw">
+              <a title={game.name} href={`https://store.steampowered.com/app/${game.appId}`} target="_blank" class="raw">
                 <img src={game.icon} alt="" />
 
                 <span>
@@ -337,11 +337,12 @@
   }
 
   .recent-games > a {
+    width: 100%;
     text-decoration: none;
     color: inherit;
 
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
     align-items: center;
     gap: 0.5rem;
 
@@ -359,13 +360,21 @@
   }
 
   .recent-games > a span {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: max-content max-content;
+    width: 100%;
   }
 
   .recent-games > a img {
     width: 2rem;
     height: 2rem;
+  }
+
+  .recent-games > a span b {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .recent-games > a span small {

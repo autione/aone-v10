@@ -5,6 +5,7 @@
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
+  import StickyNote from "$lib/components/StickyNote.svelte";
   import fellows, { type FriendEntry } from "$lib/fellows";
 
   import { Globe } from "@lucide/svelte";
@@ -51,6 +52,10 @@
       Meet some of my dear fellow creatives, who all have helped me get to where I am today one way or another. They're wonderful people, and you should
       definitely check out their work!
     </p>
+
+    <StickyNote anchor="parent" size="8rem" offset={[-64, 52]} ratio={[1, 0]} angle={-3}>
+      <small>I am not necessarily affiliated with any of the linked pages!</small>
+    </StickyNote>
   </Box>
 
   <section class="friends">

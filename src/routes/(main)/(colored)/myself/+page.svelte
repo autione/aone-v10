@@ -2,6 +2,7 @@
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
+  import StickyNote from "$lib/components/StickyNote.svelte";
 
   import { FileTerminal, Paintbrush, Clapperboard, Gamepad2, AudioLines, BadgeCheck, RectangleCircle, NotebookPen, Cpu } from "@lucide/svelte";
 
@@ -75,12 +76,9 @@
     </p>
     <br />
     <p>In the big year of 2013, at age 6, I started coding my first few projects using Microsoft's Visual Basic 2010 Express.</p>
-    <br />
-    <p>
-      <small style="opacity: 0.5;">
-        <i>VB.NET was actually part of my repertoire for a good while. Microsoft really had me!</i>
-      </small>
-    </p>
+    <StickyNote anchor="parent" size="9rem" offset={[-20, 32]} ratio={[1, 0]} angle={3}>
+      <small> VB.NET was actually part of my repertoire for a good while. Microsoft really had me! </small>
+    </StickyNote>
     <hr />
     <p>Over time, I got to learn different coding languages, and nowadays I'm mostly developing in web platforms and game engines.</p>
     <br />
@@ -140,7 +138,7 @@
       </section>
 
       <section>
-        <span class="cursive">games</span>
+        <span class="cursive">interactive</span>
         <div>
           <span>
             <MaskedIcon i="/brands/software/godot.svg" size={24} color="#478cbf" />
