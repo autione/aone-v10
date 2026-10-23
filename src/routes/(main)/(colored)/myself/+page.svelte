@@ -46,7 +46,27 @@
   <Box label="introduction">
     <p>
       As you may already know, my name is Auti. I'm a {age}-year-old brazilian <a href="https://en.wikipedia.org/wiki/Autism" target="_blank">autistic</a>
-      <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> person from São Paulo. I use they/it pronouns in English.
+      <a href="https://en.wikipedia.org/wiki/Non-binary" target="_blank">non-binary</a> person from São Paulo.
+
+      <span aria-label="I use they/it pronouns in English, and elu/delu pronouns in Portuguese.">
+        I use
+
+        <span>
+          elu/delu
+          <StickyNote fixed anchor="parent" size="max-content" offset={[3, -2]} angle={-2} aria-hidden="true" style="padding: 0.15rem 0.4rem;">
+            <b>they/it</b>
+          </StickyNote>
+        </span>
+
+        pronouns in
+
+        <span>
+          Portuguese.
+          <StickyNote fixed anchor="parent" size="max-content" offset={[0, -2]} angle={2} aria-hidden="true" style="padding: 0.15rem 0.4rem;">
+            <b>English & IRL</b>
+          </StickyNote>
+        </span>
+      </span>
     </p>
     <br />
     <p>
@@ -77,7 +97,7 @@
     <br />
     <p>In the big year of 2013, at age 6, I started coding my first few projects using Microsoft's Visual Basic 2010 Express.</p>
     <StickyNote anchor="parent" size="9rem" offset={[-20, 32]} ratio={[1, 0]} angle={3}>
-      <small> VB.NET was actually part of my repertoire for a good while. Microsoft really had me! </small>
+      VB.NET actually stuck with me for quite a good while. Microsoft really had me!
     </StickyNote>
     <hr />
     <p>Over time, I got to learn different coding languages, and nowadays I'm mostly developing in web platforms and game engines.</p>

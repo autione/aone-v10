@@ -63,7 +63,7 @@
     {/if}
   </nav>
 
-  <section>
+  <section aria-hidden={!dropdown}>
     {#if bedroom}
       {#if bedroom.user}
         <button onclick={() => (dropdown = !dropdown)} class={`user-menu ${dropdown ? "active" : ""}`}>

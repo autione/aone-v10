@@ -5,8 +5,11 @@
   import Box from "$lib/components/Box.svelte";
   import Header from "$lib/components/Header.svelte";
   import MaskedIcon from "$lib/components/MaskedIcon.svelte";
+  import StickyNote from "$lib/components/StickyNote.svelte";
 
   import { Mail } from "@lucide/svelte";
+
+  let mailLink = $state(undefined as HTMLAnchorElement | undefined);
 </script>
 
 <svelte:head>
@@ -54,10 +57,14 @@
         <MaskedIcon i={asset("/brands/github.svg")} /> GitHub
       </a>
 
-      <a class="raw" href="mailto:contact@auti.one" target="_blank">
+      <a bind:this={mailLink} class="raw" href="mailto:contact@auti.one" target="_blank">
         <Mail /> E-mail
       </a>
     </div>
+
+    <StickyNote fixed anchor={mailLink} size="max-content" offset={[-6, 5]} ratio={[1, 0]} angle={-2} aria-hidden="true" style="padding: 0.15rem 0.4rem;">
+      <small><b>contact@auti.one</b></small>
+    </StickyNote>
 
     <p style="margin-top: 0.375rem;">
       <small style="opacity: 0.5;">
@@ -157,6 +164,10 @@
         <MaskedIcon i={asset("/brands/vrchat.svg")} /> VRChat
       </a>
     </div>
+
+    <StickyNote anchor="parent" size="9rem" offset={[-120, -110]} ratio={[1, 1]} angle={5}>
+      <span>You can also find me on Epic/Fortnite by just searching for <b>AutiOne</b>.</span>
+    </StickyNote>
   </Box>
 </main>
 
@@ -175,8 +186,7 @@
     gap: 0.375rem;
   }
 
-  .socials > a,
-  .socials > span {
+  .socials > a {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -202,18 +212,7 @@
     color: var(--base-background);
   }
 
-  .socials > span {
-    background-color: var(--base-surface-off);
-    color: var(--base-accent);
-    opacity: 0.5;
-    user-select: none;
-  }
-
   @media (prefers-color-scheme: dark) {
-    .socials > span {
-      color: var(--base-foreground);
-    }
-
     .socials > a {
       background-color: rgb(from color-mix(in srgb, var(--tint) 50%, #fff 50%) r g b / 0.12);
       color: color-mix(in srgb, var(--tint) 25%, #fff 75%);

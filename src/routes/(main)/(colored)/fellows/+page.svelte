@@ -53,9 +53,7 @@
       definitely check out their work!
     </p>
 
-    <StickyNote anchor="parent" size="8rem" offset={[-64, 52]} ratio={[1, 0]} angle={-3}>
-      <small>I am not necessarily affiliated with any of the linked pages!</small>
-    </StickyNote>
+    <StickyNote anchor="parent" size="8rem" offset={[-64, 52]} ratio={[1, 0]} angle={-3}>Also, I'm not necessarily affiliated to all linked pages.</StickyNote>
   </Box>
 
   <section class="friends">

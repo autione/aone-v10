@@ -4,6 +4,7 @@
 
   import { Info, TriangleAlert, OctagonX, Lightbulb, CircleCheck } from "@lucide/svelte";
     import type { Component } from "svelte";
+    import StickyNote from "./StickyNote.svelte";
 
   const { source = "" } = $props();
 
@@ -49,5 +50,17 @@
         {@render children?.()}
       </span>
     </div>
+  {/snippet}
+
+  {#snippet html_postit({ attributes, children })}
+    {const color = (attributes?.["color"] || "yellow") as string}
+    {const offsetX = Number(attributes?.["offsetX"]) || 0 as number}
+    {const offsetY = Number(attributes?.["offsetY"]) || 0 as number}
+    {const ratioX = Number(attributes?.["ratioX"]) || 0 as number}
+    {const ratioY = Number(attributes?.["ratioY"]) || 0 as number}
+    
+    <StickyNote background={`var(--tint-${color})`} offset={[offsetX, offsetY]} ratio={[ratioX, ratioY]} {...attributes}>
+      {@render children?.()}
+    </StickyNote>
   {/snippet}
 </SvelteMarkdown>

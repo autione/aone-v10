@@ -561,8 +561,10 @@ form.with-layout label > div {
 }
 
 .markdown-content em > strong {
-  background-color: var(--base-surface-off);
+  background-color: var(--base-surface-mid);
   color: var(--base-foreground);
+  font-style: normal;
+  font-weight: 600;
 
   padding: 0.125rem;
   margin: -0.125rem;

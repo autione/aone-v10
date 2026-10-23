@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-Thin.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-Light.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Playpen Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/playpen/PlaypenSans-ExtraBold.ttf");
+}
